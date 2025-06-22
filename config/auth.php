@@ -18,8 +18,6 @@ return [
         'passwords' => 'users',
     ],
 
-
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -43,7 +41,6 @@ return [
             'provider' => 'users',
         ],
 
-        // Guard khusus untuk Customer
         'customer' => [
             'driver' => 'session',
             'provider' => 'customers',
@@ -52,6 +49,11 @@ return [
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
+        ],
+
+        'sales' => [
+            'driver' => 'session',
+            'provider' => 'sales',
         ],
     ],
 
@@ -66,7 +68,7 @@ return [
     |
     | If you have multiple user tables or models you may configure multiple
     | sources which represent each model / table. These sources may then
-    | be assigned to any extra authentication guards you have defined.
+    | be assigned to any authentication guards you have defined.
     |
     | Supported: "database", "eloquent"
     |
@@ -78,7 +80,6 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // DITAMBAHKAN: Provider yang menunjuk ke Model Customer
         'customers' => [
             'driver' => 'eloquent',
             'model' => App\Models\Customer::class,
@@ -88,6 +89,16 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
         ],
+
+        'sales' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Sales::class,
+        ],
+
+        // 'users' => [
+        //     'driver' => 'database',
+        //     'table' => 'users',
+        // ],
     ],
 
     /*
@@ -105,7 +116,7 @@ return [
     |
     | The throttle setting is the number of seconds a user must wait before
     | generating more password reset tokens. This prevents the user from
-    | quickly generating a very large amount of password reset tokens.
+    | quickly generating a very large number of tokens and reduces risk.
     |
     */
 
@@ -131,25 +142,4 @@ return [
 
     'password_timeout' => 10800,
 
-    'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-        'sales' => [ // Add this guard
-            'driver' => 'session',
-            'provider' => 'sales',
-        ],
-    ],
-
-    'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-        'sales' => [ // Add this provider
-            'driver' => 'eloquent',
-            'model' => App\Models\Sales::class,
-        ],
-    ],
 ];
