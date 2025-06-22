@@ -195,7 +195,7 @@
           <div>
             <div class="mb-6 flex items-center space-x-3">
               <div class="flex h-10 w-10 items-center justify-center rounded-lg">
-                <img src="{{ asset('img/Logo Kulakan/1x/Artboard 1 copy 3.png') }}" alt="" />
+                <img src="{{ asset('img/Logo Kulakan/1x/Artboard 1 copy 4.png') }}" alt="" />
                 <img src="{{ asset('images/logo/Artboard 1 copy 3.png') }}" alt="" />
               </div>
               <span class="text-xl font-bold">KulakanCepat</span>
