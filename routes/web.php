@@ -12,12 +12,6 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\OrderDetailController;
-<<<<<<< HEAD
-use App\Http\Controllers\Auth\SalesLoginController;
-use App\Http\Controllers\Sales\SalesController;
-use App\Http\Controllers\Sales\VisitScheduleController;
-=======
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
 
 /*
 |--------------------------------------------------------------------------
@@ -79,52 +73,11 @@ Route::middleware('auth:customer')->group(function () {
 
     Route::get('/order/confirmation/{transaction}', [OrderDetailController::class, 'confirmation'])->name('order.confirmation');
     Route::get('/order/{transaction}', [OrderDetailController::class, 'show'])->name('order.show');
-<<<<<<< HEAD
-});
 
-Route::prefix('sales')->name('sales.')->group(function () {
-    Route::get('/login', [SalesLoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [SalesLoginController::class, 'login']);
-    Route::post('/logout', [SalesLoginController::class, 'logout'])->name('logout');
 
-    // Grup rute yang dilindungi oleh middleware auth.sales
-    Route::middleware(['auth.sales'])->group(function () {
-        Route::get('/dashboard', function () {
-            return view('sales.dashboard');
-        })->name('dashboard');
-
-        Route::get('/customers', [SalesController::class, 'index'])->name('customers.index');
-        Route::get('/customers/{id}', [SalesController::class, 'show'])->name('customer.detail');
-        Route::post('/customers/{id}/notes', [SalesController::class, 'storeVisitNote'])->name('customer.storeVisitNote');
-        Route::get('/customers/{id}/edit-status', [SalesController::class, 'editStatus'])->name('customer.editStatus');
-        Route::put('/customers/{id}/update-status', [SalesController::class, 'updateStatus'])->name('customer.updateStatus');
-
-        Route::get('/performance-report', function () {
-            return view('sales.performance-report');
-        })->name('performance_report');
-
-        Route::resource('visit-schedule', VisitScheduleController::class)
-            ->names('visit_schedule');
-
-        Route::get('/sales-material', function () {
-            return view('sales.sales-material');
-        })->name('sales_material');
-
-        Route::get('/leads/create', [SalesController::class, 'createLead'])->name('leads.create');
-        Route::post('/leads', [SalesController::class, 'storeLead'])->name('leads.store');
-
-        Route::get('/scanner', function () {
-            return view('sales.scanner');
-        })->name('scanner');
-    });
-});
-=======
-
-    
     Route::get('/checkout', [OrderDetailController::class, 'checkout'])->name('checkout.show');
     Route::post('/checkout', [OrderDetailController::class, 'store'])->name('checkout.store');
     Route::get('/order/confirmation/{transaction}', [OrderDetailController::class, 'confirmation'])->name('order.confirmation');
     Route::get('/orders', [OrderDetailController::class, 'index'])->name('order.history');
     Route::get('/orders/{transaction}', [OrderDetailController::class, 'show'])->name('order.show');
 });
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
