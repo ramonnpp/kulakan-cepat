@@ -82,7 +82,7 @@ class OrderDetailController extends Controller
     {
         $request->validate([
             'address_id'     => 'required|exists:addresses,id_address',
-            'payment_method' => 'required|in:COD,kredit_toko',
+            'payment_method' => 'required|in:cod,kredit_toko',
         ]);
 
         $customerId = Auth::guard('customer')->id();
