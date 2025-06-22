@@ -21,9 +21,9 @@ class OrderDetailController extends Controller
     {
         $customerId = Auth::guard('customer')->id();
         $transactions = Transaction::where('id_customer', $customerId)
-            ->orderBy('created_at', 'desc')
-            ->get();
-
+                                   ->orderBy('created_at', 'desc')
+                                   ->get();
+        
         return view('customers.order-history', compact('transactions'));
     }
 
@@ -33,9 +33,9 @@ class OrderDetailController extends Controller
     public function checkout()
     {
         $customerId = Auth::guard('customer')->id();
-        $cart = Session::get('cart', []);
-
-        $cart = array_filter($cart, function ($key) {
+        $cart = Session::get('cart', []);   
+        
+        $cart = array_filter($cart, function($key) {
             return !empty($key);
         }, ARRAY_FILTER_USE_KEY);
 
@@ -61,7 +61,7 @@ class OrderDetailController extends Controller
 
         foreach ($products as $product) {
             if (isset($cart[$product->id_product])) {
-                $cartItems[] = [
+                $cartItems[] = [  
                     'id'          => $product->id_product,
                     'name'        => $product->name,
                     'description' => $product->short_description ?? '',
@@ -78,7 +78,7 @@ class OrderDetailController extends Controller
     /**
      * Memproses data dari form checkout untuk membuat transaksi baru.
      */
-    public function store(Request $request)
+   public function store(Request $request)
     {
         $request->validate([
             'address_id'     => 'required|exists:addresses,id_address',
@@ -88,7 +88,7 @@ class OrderDetailController extends Controller
         $customerId = Auth::guard('customer')->id();
         $cart = Session::get('cart', []);
         $cart = array_filter($cart, fn($key) => !empty($key), ARRAY_FILTER_USE_KEY);
-
+        
         if (empty($cart)) {
             return back()->with('error', 'Keranjang Anda kosong.');
         }
@@ -100,7 +100,7 @@ class OrderDetailController extends Controller
 
             $totalPrice = 0;
             foreach ($cart as $id => $details) {
-                if (isset($products[$id])) {
+                if(isset($products[$id])) {
                     $totalPrice += $products[$id]->price * $details['quantity'];
                 } else {
                     throw new \Exception("Produk dengan ID {$id} tidak dapat diproses.");
@@ -115,14 +115,14 @@ class OrderDetailController extends Controller
             }
             $transaction = Transaction::create([
                 'id_customer'      => $customerId,
-                'date_transaction' => Carbon::now(),
-                'total_price'      => $totalPrice,
-                'status'           => 'WAITING_CONFIRMATION',
-                'method_payment'   => $request->payment_method,
-                'payment_due_date' => Carbon::now()->addDay(),
+                'date_transaction' => Carbon::now(), 
+                'total_price'      => $totalPrice, 
+                'status'           => 'WAITING_CONFIRMATION', 
+                'method_payment'   => $request->payment_method, 
+                'payment_due_date' => Carbon::now()->addDay(),  
                 'paid_at'          => null,
             ]);
-
+            
 
             foreach ($cart as $id => $details) {
                 TransactionDetail::create([
@@ -137,7 +137,8 @@ class OrderDetailController extends Controller
             DB::commit();
 
             return redirect()->route('order.confirmation', ['transaction' => $transaction->id_transaction])
-                ->with('success', 'Pesanan berhasil dibuat!');
+                             ->with('success', 'Pesanan berhasil dibuat!');
+
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('checkout.show')->with('error', $e->getMessage());

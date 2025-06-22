@@ -1,20 +1,9 @@
 @extends('layouts.checkout')
-<<<<<<< HEAD
-{{-- Menggunakan layout checkout yang baru --}}
-=======
 {{-- Pastikan layout ini ada dan sudah memuat Tailwind CSS, Alpine.js, dan Font Awesome --}}
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
 
 @section('title', 'Checkout')
 
 @section('content')
-<<<<<<< HEAD
-  <main class="container mx-auto my-6 px-4" x-data="{ showAddressModal: false }">
-    <form action="{{ route('checkout.process') }}" method="POST">
-      @csrf
-      <div class="flex flex-col gap-8 lg:flex-row">
-        <!-- Kolom Kiri: Detail Pesanan -->
-=======
   <main
     class="container mx-auto my-6 px-4"
     x-data="{
@@ -49,7 +38,6 @@
         <!-- =================================================== -->
         <!-- == KOLOM KIRI: Alamat & Daftar Produk           == -->
         <!-- =================================================== -->
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
         <div class="w-full space-y-6 lg:w-2/3">
           <!-- Alamat Pengiriman -->
           <div class="rounded-lg border bg-white p-6">
@@ -62,29 +50,6 @@
                 Pilih Alamat Lain
               </button>
             </div>
-<<<<<<< HEAD
-            <div class="flex items-start space-x-4">
-              <i class="fas fa-map-marker-alt mt-1 text-red-700"></i>
-              <div>
-                <p class="font-bold">
-                  {{ $selectedAddress->recipient_name }} ({{ $selectedAddress->label }})
-                </p>
-                <p class="text-sm text-gray-600">{{ $selectedAddress->phone }}</p>
-                <p class="mt-1 text-sm text-gray-600">{{ $selectedAddress->address }}</p>
-                @if ($selectedAddress->notes)
-                  <p class="mt-1 text-xs text-gray-500">
-                    <b>Catatan:</b>
-                    {{ $selectedAddress->notes }}
-                  </p>
-                @endif
-
-                <input
-                  type="hidden"
-                  name="address_id"
-                  value="{{ $selectedAddress->id_address ?? '' }}" />
-              </div>
-            </div>
-=======
 
             {{-- PERBAIKAN: Input 'address_id' dipindah ke luar @if agar selalu ada --}}
             <input
@@ -117,7 +82,6 @@
                 <p class="text-sm">Silakan pilih dari modal atau tambah alamat baru.</p>
               </div>
             @endif
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
           </div>
 
           <!-- Daftar Produk Pesanan -->
@@ -128,11 +92,7 @@
             @endphp
 
             @forelse ($cartItems as $item)
-<<<<<<< HEAD
-              <div class="mb-4 flex items-center">
-=======
               <div class="mb-4 flex items-center last:mb-0">
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
                 <img
                   src="{{ $item['image'] ? asset('storage/' . $item['image']) : 'https://placehold.co/100x100/e2e8f0/94a3b8?text=Gambar' }}"
                   alt="{{ $item['name'] }}"
@@ -142,10 +102,6 @@
                   <p class="text-sm text-gray-600">{{ $item['description'] }}</p>
                 </div>
                 <div class="text-right">
-<<<<<<< HEAD
-                  <p class="font-bold">Rp{{ number_format($item['price'], 0, ',', '.') }}</p>
-                  <p class="text-sm text-gray-600">{{ $item['quantity'] }} barang</p>
-=======
                   <p class="font-bold">
                     Rp{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }}
                   </p>
@@ -153,37 +109,24 @@
                     {{ $item['quantity'] }} barang x
                     Rp{{ number_format($item['price'], 0, ',', '.') }}
                   </p>
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
                 </div>
               </div>
               @php
                 $totalItemPrice += $item['price'] * $item['quantity'];
               @endphp
             @empty
-<<<<<<< HEAD
-              <p class="text-gray-500">Keranjang belanja Anda kosong.</p>
-=======
               <p class="text-center text-gray-500">Keranjang belanja Anda kosong.</p>
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
             @endforelse
           </div>
         </div>
 
-<<<<<<< HEAD
-        <!-- Kolom Kanan: Ringkasan & Pembayaran -->
-=======
         <!-- =================================================== -->
         <!-- == KOLOM KANAN: Pembayaran & Ringkasan          == -->
         <!-- =================================================== -->
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
         <aside class="w-full space-y-6 lg:w-1/3">
           <div class="sticky top-24 rounded-lg border bg-white p-6">
             <h4 class="mb-4 border-b pb-4 font-bold">PILIH PEMBAYARAN</h4>
             <div class="space-y-3">
-<<<<<<< HEAD
-              {{-- Opsi 1: Bayar di Tempat (COD) --}}
-=======
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
               <label
                 @click="selectedPayment = 'cod'"
                 class="payment-option flex cursor-pointer items-center rounded-lg border p-3"
@@ -195,14 +138,8 @@
                   name="payment_method"
                   value="cod"
                   x-model="selectedPayment"
-<<<<<<< HEAD
-                  class="accent-red-700" />
-              </label>
-              {{-- Opsi 2: Kredit Toko --}}
-=======
                   class="h-4 w-4 accent-red-600" />
               </label>
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
               <label
                 @click="selectedPayment = 'kredit_toko'"
                 class="payment-option flex cursor-pointer items-center rounded-lg border p-3"
@@ -220,48 +157,28 @@
                   name="payment_method"
                   value="kredit_toko"
                   x-model="selectedPayment"
-<<<<<<< HEAD
-                  class="accent-red-700" />
-=======
                   class="h-4 w-4 accent-red-600" />
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
               </label>
             </div>
             <hr class="my-6" />
             <h4 class="mb-4 font-bold">Ringkasan Belanja</h4>
             <div class="mb-2 flex justify-between text-gray-600">
               <span>Total Harga ({{ count($cartItems) }} Barang)</span>
-<<<<<<< HEAD
-              <span id="summary-item-price" data-price="{{ $totalItemPrice }}">
-                Rp{{ number_format($totalItemPrice, 0, ',', '.') }}
-              </span>
-=======
               <span>Rp{{ number_format($totalItemPrice, 0, ',', '.') }}</span>
             </div>
             <div class="mb-2 flex justify-between text-gray-600">
               <span>Biaya Pengiriman</span>
               <span>Rp{{ number_format(0, 0, ',', '.') }}</span>
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
             </div>
             <hr class="my-2" />
             <div class="flex justify-between text-lg font-bold">
               <span>Total Tagihan</span>
-<<<<<<< HEAD
-              <span id="summary-total-price" data-total="{{ $totalItemPrice }}">
-                Rp{{ number_format($totalItemPrice, 0, ',', '.') }}
-              </span>
-            </div>
-            <button
-              type="submit"
-              class="mt-4 w-full rounded-lg bg-red-700 py-3 font-bold text-white transition-colors hover:bg-red-800">
-=======
               <span>Rp{{ number_format($totalItemPrice, 0, ',', '.') }}</span>
             </div>
             <button
               type="submit"
               class="mt-4 w-full rounded-lg bg-red-700 py-3 font-bold text-white transition-colors hover:bg-red-800 disabled:cursor-not-allowed disabled:opacity-50"
               :disabled="!{{ $selectedAddress ? 'true' : 'false' }} || {{ empty($cartItems) ? 'true' : 'false' }}">
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
               <i class="fas fa-shield-alt mr-2"></i>
               Konfirmasi Pesanan
             </button>
@@ -270,13 +187,9 @@
       </div>
     </form>
 
-<<<<<<< HEAD
-    <!-- Modal Popup untuk Pilih Alamat -->
-=======
     <!-- =================================================== -->
     <!-- == MODAL POPUP UNTUK PILIH ALAMAT                 == -->
     <!-- =================================================== -->
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
     <div
       x-show="showAddressModal"
       style="display: none"
@@ -296,19 +209,6 @@
         </div>
         <div class="space-y-4 overflow-y-auto p-6">
           @forelse ($allAddresses as $address)
-<<<<<<< HEAD
-            <div
-              class="{{ $selectedAddress->id_address == $address->id_address ? 'border-2 border-red-500' : '' }} rounded-lg border p-3 transition">
-              <p class="font-bold">{{ $address->label }}</p>
-              <p class="mt-1 font-semibold">{{ $address->recipient_name }}</p>
-              <p class="text-sm text-gray-600">{{ $address->phone }}</p>
-              <p class="mt-1 text-sm text-gray-600">{{ $address->address }}</p>
-              <div class="mt-2 text-right">
-                @if ($selectedAddress->id_address == $address->id_address)
-                  <span class="text-sm font-semibold text-red-600">Alamat Dipilih</span>
-                @else
-                  <form action="{{ route('address.select', $address->id_address) }}" method="POST">
-=======
             {{-- PERBAIKAN: Menggunakan id_address untuk perbandingan --}}
             <div
               class="{{ $selectedAddress && $selectedAddress->id_address == $address->id_address ? 'border-2 border-red-500 bg-red-50' : 'border' }} rounded-lg p-3 transition">
@@ -328,16 +228,11 @@
                   <form
                     action="{{ route('address.select', ['address' => $address->id_address]) }}"
                     method="POST">
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
                     @csrf
                     <button
                       type="submit"
                       class="rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700">
-<<<<<<< HEAD
-                      Pilih
-=======
                       Pilih Alamat Ini
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
                     </button>
                   </form>
                 @endif
@@ -347,11 +242,7 @@
             <p class="text-center text-gray-500">Tidak ada alamat tersimpan.</p>
           @endforelse
           <a
-<<<<<<< HEAD
-            href="{{ route('profile.show', ['#alamat']) }}"
-=======
             href="{{ route('profile.show') }}#address-section"
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
             class="mt-4 block w-full rounded-lg border-2 border-dashed py-3 text-center font-semibold text-red-600 hover:bg-red-50">
             + Tambah Alamat Baru
           </a>
@@ -363,42 +254,6 @@
 
 @push('scripts')
   <script>
-<<<<<<< HEAD
-    document.addEventListener('DOMContentLoaded', function () {
-      const insuranceCheckbox = document.getElementById('shippingInsurance')
-      const summaryTotalPriceEl = document.getElementById('summary-total-price')
-      const summaryInsurancePriceEl = document.getElementById('summary-insurance-price')
-
-      const baseItemPrice = parseFloat(document.getElementById('summary-item-price').dataset.price)
-      const insuranceCost = 300
-
-      function calculateTotal() {
-        const insurancePrice = insuranceCheckbox.checked ? insuranceCost : 0
-        const totalPrice = baseItemPrice + insurancePrice
-
-        summaryInsurancePriceEl.textContent = 'Rp' + insurancePrice.toLocaleString('id-ID')
-        summaryTotalPriceEl.textContent = 'Rp' + totalPrice.toLocaleString('id-ID')
-      }
-
-      insuranceCheckbox.addEventListener('change', calculateTotal)
-
-      document.querySelectorAll('.payment-option').forEach((option) => {
-        option.addEventListener('click', function () {
-          document
-            .querySelectorAll('.payment-option')
-            .forEach((opt) => opt.classList.remove('bg-red-50', 'border-red-500'))
-          this.classList.add('bg-red-50', 'border-red-500')
-          this.querySelector('input[type="radio"]').checked = true
-        })
-      })
-
-      const checkedRadio = document.querySelector('input[name="payment_method"]:checked')
-      if (checkedRadio) {
-        checkedRadio.closest('.payment-option').classList.add('bg-red-50', 'border-red-500')
-      }
-
-      calculateTotal()
-=======
     // PERBAIKAN: Script JS yang tidak perlu dan menyebabkan error sudah dihapus.
     // Kode ini hanya untuk menangani highlight pada metode pembayaran.
     document.addEventListener('DOMContentLoaded', function () {
@@ -425,7 +280,6 @@
           highlightPayment()
         })
       })
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
     })
   </script>
 @endpush

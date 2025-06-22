@@ -19,18 +19,9 @@ class ProfileController extends Controller
     {
         /** @var \App\Models\Customer $customer */
         $customer = Auth::guard('customer')->user();
-<<<<<<< HEAD
-
-        // Mengambil transaksi customer
-        $transactions = $customer->transactions()->orderBy('date_transaction', 'desc')->paginate(5);
-        
-        // DIPERBAIKI: Mengambil SEMUA alamat yang berelasi dengan customer
-        // Ini memerlukan relasi addresses() di model Customer Anda.
-=======
         $customer->load('tier');
 
         $transactions = $customer->transactions()->orderBy('date_transaction', 'desc')->paginate(5);
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
         $addresses = $customer->addresses()->latest()->get();
 
         return view('customers.user-profile', [
@@ -96,8 +87,4 @@ class ProfileController extends Controller
 
         return redirect()->route('profile.show')->with('success', 'Password berhasil diubah!');
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e

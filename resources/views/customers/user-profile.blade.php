@@ -55,8 +55,6 @@
           <h6 class="truncate text-lg font-bold">{{ $user->name_owner }}</h6>
           <p class="text-sm text-gray-500">{{ $user->name_store ?? 'Toko Retail' }}</p>
         </div>
-<<<<<<< HEAD
-=======
         <div class="mt-6 rounded-lg bg-white p-4 text-left shadow-sm">
           <h4 class="mb-3 text-base font-bold text-gray-700">Info Kredit</h4>
           <div class="space-y-3 text-sm">
@@ -77,7 +75,6 @@
             </div>
           </div>
         </div>
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
       </aside>
 
       <div class="md:col-span-3">

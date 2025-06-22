@@ -20,7 +20,7 @@ class CheckoutController extends Controller
     {
         /** @var \App\Models\Customer $user */
         $user = Auth::guard('customer')->user();
-
+        
         // Mengambil item yang dipilih dari halaman keranjang (jika ada)
         $selectedItemIds = $request->query('items', []);
         $cart = session('cart', []);
@@ -29,7 +29,7 @@ class CheckoutController extends Controller
             $cartItems = array_intersect_key($cart, array_flip($selectedItemIds));
             session(['checkout_items' => $cartItems]);
         } else {
-
+            
             $cartItems = session('checkout_items', []);
         }
 
@@ -37,14 +37,14 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index')->with('info', 'Keranjang belanja Anda kosong atau belum ada produk yang dipilih.');
         }
 
-
+        
         $selectedAddressId = session('selected_address_id');
-        $selectedAddress = $selectedAddressId
+        $selectedAddress = $selectedAddressId 
             ? Address::where('id_address', $selectedAddressId)->where('id_customer', $user->id_customer)->first()
             : ($user->addresses()->where('is_primary', true)->first() ?? $user->addresses()->first());
-
+        
         if (!$selectedAddress) {
-            return redirect()->route('profile.show', ['#alamat'])->with('info', 'Silakan tambahkan alamat pengiriman terlebih dahulu.');
+             return redirect()->route('profile.show', ['#alamat'])->with('info', 'Silakan tambahkan alamat pengiriman terlebih dahulu.');
         }
 
         $allAddresses = $user->addresses()->latest()->get();
@@ -99,7 +99,7 @@ class CheckoutController extends Controller
                 Product::find($item['product_id'])->decrement('total_stock', $item['quantity']);
                 session()->pull('cart.' . $id);
             }
-
+            
             if ($validatedData['payment_method'] === 'kredit_toko') {
                 $user->credit_limit -= $totalPrice;
                 $user->save();
