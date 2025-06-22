@@ -2,15 +2,6 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
-use App\Models\Transaction;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-
-class OrderDetailController extends Controller
-{
-   
-=======
 use App\Models\Address;
 use App\Models\Product;
 use App\Models\Transaction;
@@ -30,9 +21,9 @@ class OrderDetailController extends Controller
     {
         $customerId = Auth::guard('customer')->id();
         $transactions = Transaction::where('id_customer', $customerId)
-                                   ->orderBy('created_at', 'desc')
-                                   ->get();
-        
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return view('customers.order-history', compact('transactions'));
     }
 
@@ -42,9 +33,9 @@ class OrderDetailController extends Controller
     public function checkout()
     {
         $customerId = Auth::guard('customer')->id();
-        $cart = Session::get('cart', []);   
-        
-        $cart = array_filter($cart, function($key) {
+        $cart = Session::get('cart', []);
+
+        $cart = array_filter($cart, function ($key) {
             return !empty($key);
         }, ARRAY_FILTER_USE_KEY);
 
@@ -70,7 +61,7 @@ class OrderDetailController extends Controller
 
         foreach ($products as $product) {
             if (isset($cart[$product->id_product])) {
-                $cartItems[] = [  
+                $cartItems[] = [
                     'id'          => $product->id_product,
                     'name'        => $product->name,
                     'description' => $product->short_description ?? '',
@@ -87,7 +78,7 @@ class OrderDetailController extends Controller
     /**
      * Memproses data dari form checkout untuk membuat transaksi baru.
      */
-   public function store(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'address_id'     => 'required|exists:addresses,id_address',
@@ -97,7 +88,7 @@ class OrderDetailController extends Controller
         $customerId = Auth::guard('customer')->id();
         $cart = Session::get('cart', []);
         $cart = array_filter($cart, fn($key) => !empty($key), ARRAY_FILTER_USE_KEY);
-        
+
         if (empty($cart)) {
             return back()->with('error', 'Keranjang Anda kosong.');
         }
@@ -109,7 +100,7 @@ class OrderDetailController extends Controller
 
             $totalPrice = 0;
             foreach ($cart as $id => $details) {
-                if(isset($products[$id])) {
+                if (isset($products[$id])) {
                     $totalPrice += $products[$id]->price * $details['quantity'];
                 } else {
                     throw new \Exception("Produk dengan ID {$id} tidak dapat diproses.");
@@ -124,14 +115,14 @@ class OrderDetailController extends Controller
             }
             $transaction = Transaction::create([
                 'id_customer'      => $customerId,
-                'date_transaction' => Carbon::now(), 
-                'total_price'      => $totalPrice, 
-                'status'           => 'WAITING_CONFIRMATION', 
-                'method_payment'   => $request->payment_method, 
-                'payment_due_date' => Carbon::now()->addDay(),  
+                'date_transaction' => Carbon::now(),
+                'total_price'      => $totalPrice,
+                'status'           => 'WAITING_CONFIRMATION',
+                'method_payment'   => $request->payment_method,
+                'payment_due_date' => Carbon::now()->addDay(),
                 'paid_at'          => null,
             ]);
-            
+
 
             foreach ($cart as $id => $details) {
                 TransactionDetail::create([
@@ -146,8 +137,7 @@ class OrderDetailController extends Controller
             DB::commit();
 
             return redirect()->route('order.confirmation', ['transaction' => $transaction->id_transaction])
-                             ->with('success', 'Pesanan berhasil dibuat!');
-
+                ->with('success', 'Pesanan berhasil dibuat!');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('checkout.show')->with('error', $e->getMessage());
@@ -157,42 +147,23 @@ class OrderDetailController extends Controller
     /**
      * Menampilkan halaman konfirmasi setelah checkout berhasil.
      */
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
     public function confirmation(Transaction $transaction)
     {
         if ($transaction->id_customer !== Auth::guard('customer')->id()) {
             abort(403, 'Akses Ditolak');
         }
-<<<<<<< HEAD
-
-        return view('customers.order-confirmation', compact('transaction'));
-    }
-
-=======
         return view('customers.order-confirmation', compact('transaction'));
     }
 
     /**
      * Menampilkan detail lengkap dari satu transaksi.
      */
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
     public function show(Transaction $transaction)
     {
         if ($transaction->id_customer !== Auth::guard('customer')->id()) {
             abort(403, 'Akses Ditolak');
         }
-<<<<<<< HEAD
-
-        $transaction->load('details.product');
-
-        return view('customers.order-detail', [
-            'transaction' => $transaction,
-        ]);
-    }
-}
-=======
         $transaction->load('details.product');
         return view('customers.order-detail', compact('transaction'));
     }
 }
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
