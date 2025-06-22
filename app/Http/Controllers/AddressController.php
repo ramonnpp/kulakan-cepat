@@ -22,7 +22,10 @@ class AddressController extends Controller
         // Simpan ID alamat yang dipilih ke dalam session
         session(['selected_address_id' => $address->id_address]);
         
+<<<<<<< HEAD
         // Arahkan pengguna kembali ke halaman CHECKOUT.
+=======
+>>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
         return redirect()->route('checkout.show')->with('success_toast', 'Alamat pengiriman berhasil diubah.');
     }
 
@@ -88,4 +91,8 @@ class AddressController extends Controller
         
         return redirect()->route('profile.show', ['#alamat'])->with('success', 'Alamat berhasil dihapus.');
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e

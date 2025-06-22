@@ -12,9 +12,12 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\OrderDetailController;
+<<<<<<< HEAD
 use App\Http\Controllers\Auth\SalesLoginController;
 use App\Http\Controllers\Sales\SalesController;
 use App\Http\Controllers\Sales\VisitScheduleController;
+=======
+>>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +79,7 @@ Route::middleware('auth:customer')->group(function () {
 
     Route::get('/order/confirmation/{transaction}', [OrderDetailController::class, 'confirmation'])->name('order.confirmation');
     Route::get('/order/{transaction}', [OrderDetailController::class, 'show'])->name('order.show');
+<<<<<<< HEAD
 });
 
 Route::prefix('sales')->name('sales.')->group(function () {
@@ -114,3 +118,13 @@ Route::prefix('sales')->name('sales.')->group(function () {
         })->name('scanner');
     });
 });
+=======
+
+    
+    Route::get('/checkout', [OrderDetailController::class, 'checkout'])->name('checkout.show');
+    Route::post('/checkout', [OrderDetailController::class, 'store'])->name('checkout.store');
+    Route::get('/order/confirmation/{transaction}', [OrderDetailController::class, 'confirmation'])->name('order.confirmation');
+    Route::get('/orders', [OrderDetailController::class, 'index'])->name('order.history');
+    Route::get('/orders/{transaction}', [OrderDetailController::class, 'show'])->name('order.show');
+});
+>>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e

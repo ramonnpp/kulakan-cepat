@@ -53,10 +53,13 @@
             <a href="#" class="hover:text-red-200"><i class="fab fa-instagram"></i></a>
           </div>
           <div class="flex items-center space-x-4">
+<<<<<<< HEAD
              <a href="{{ route('home') }}" class="hover:text-red-200">
               <i class="fas fa-home mr-1"></i>
               Home
             </a>
+=======
+>>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
             <a href="#" class="hover:text-red-200">
               <i class="fas fa-bell mr-1"></i>
               Notifikasi
@@ -71,7 +74,11 @@
           <!-- Logo -->
           <!-- Logo -->
           <div class="flex-shrink-0">
+<<<<<<< HEAD
             <a href="javascript:void(0)" class="flex items-center space-x-3 cursor-default select-none">
+=======
+            <a href="{{ route('home') }}" class="flex items-center space-x-3">
+>>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
               <div class="h-12 w-12 overflow-hidden rounded-xl">
                 <img
                   src="{{ asset('img/logo/Artboard 1 copy.png') }}"
@@ -194,7 +201,11 @@
           <div>
             <div class="mb-6 flex items-center space-x-3">
               <div class="flex h-10 w-10 items-center justify-center rounded-lg">
+<<<<<<< HEAD
                 <img src="{{ asset('img/Logo Kulakan/1x/Artboard 1 copy 3.png') }}" alt="" />
+=======
+                <img src="{{ asset('images/logo/Artboard 1 copy 3.png') }}" alt="" />
+>>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
               </div>
               <span class="text-xl font-bold">KulakanCepat</span>
             </div>
