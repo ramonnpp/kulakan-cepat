@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('visit_schedules', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_sales');
-            $table->unsignedBigInteger('id_customer');
+            // PERBAIKAN DI SINI
+            $table->unsignedInteger('id_sales');
+            $table->unsignedInteger('id_customer');
+            // AKHIR PERBAIKAN
+
             $table->string('title');
             $table->text('notes')->nullable();
             $table->dateTime('start_time');
