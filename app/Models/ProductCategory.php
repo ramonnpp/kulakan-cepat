@@ -9,9 +9,9 @@ class ProductCategory extends Model
 {
     use HasFactory;
 
-    protected $table = 'products_category'; // Nama tabel di database
-    protected $primaryKey = 'id_product_category'; // Primary key kustom
-    public $timestamps = false; // Tabel ini tidak memiliki kolom created_at/updated_at standar
+    protected $table = 'products_category'; // Pastikan nama tabel Bosh Ejet benar di sini
+    protected $primaryKey = 'id_product_category'; // Pastikan primary key Bosh Ejet benar di sini
+    public $timestamps = false; // Jika tabel ini tidak memiliki created_at/updated_at
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +21,7 @@ class ProductCategory extends Model
     protected $fillable = [
         'name',
         'description',
+        // 'slug', // Jika sebelumnya ada slug dan sekarang dihapus, pastikan ini tidak ada
     ];
 
     /**

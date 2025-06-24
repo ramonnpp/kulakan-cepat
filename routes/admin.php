@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\SalesController;
@@ -25,6 +26,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('products', ProductController::class);
+    
+    Route::resource('categories', ProductCategoryController::class);
     
     Route::resource('customers', CustomerController::class);
     Route::patch('customers/{customer}/approve', [CustomerController::class, 'approve'])->name('customers.approve');
