@@ -154,12 +154,9 @@
             <li class="flex items-center"><i class="fas fa-check text-red-700 mr-2"></i> Sistem distribusi terotomatisasi</li>
             <li class="flex items-center"><i class="fas fa-check text-red-700 mr-2"></i> Analytics penjualan real-time</li>
           </ul>
-<<<<<<< HEAD
-=======
           <a href="#" class="inline-flex items-center text-red-700 font-bold hover:text-red-800 transition-colors">
             Lihat Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
           </a>
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
         </div>
         
         <!-- Toko Card -->
@@ -178,12 +175,9 @@
             <li class="flex items-center"><i class="fas fa-check text-blue-700 mr-2"></i> Pengiriman cepat & aman</li>
             <li class="flex items-center"><i class="fas fa-check text-blue-700 mr-2"></i> Credit limit untuk member</li>
           </ul>
-<<<<<<< HEAD
-=======
           <a href="#" class="inline-flex items-center text-blue-700 font-bold hover:text-blue-800 transition-colors">
             Lihat Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
           </a>
->>>>>>> 31fd99983fad3b2e1e1b5903486e6fd5f14ca29e
         </div>
       </div>
     </div>
