@@ -35,9 +35,7 @@
     <form action="{{ route('checkout.store') }}" method="POST">
       @csrf
       <div class="flex flex-col gap-8 lg:flex-row">
-        <!-- =================================================== -->
         <!-- == KOLOM KIRI: Alamat & Daftar Produk           == -->
-        <!-- =================================================== -->
         <div class="w-full space-y-6 lg:w-2/3">
           <!-- Alamat Pengiriman -->
           <div class="rounded-lg border bg-white p-6">
@@ -50,8 +48,6 @@
                 Pilih Alamat Lain
               </button>
             </div>
-
-            {{-- PERBAIKAN: Input 'address_id' dipindah ke luar @if agar selalu ada --}}
             <input
               type="hidden"
               name="address_id"
@@ -120,9 +116,8 @@
           </div>
         </div>
 
-        <!-- =================================================== -->
+
         <!-- == KOLOM KANAN: Pembayaran & Ringkasan          == -->
-        <!-- =================================================== -->
         <aside class="w-full space-y-6 lg:w-1/3">
           <div class="sticky top-24 rounded-lg border bg-white p-6">
             <h4 class="mb-4 border-b pb-4 font-bold">PILIH PEMBAYARAN</h4>

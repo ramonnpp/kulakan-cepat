@@ -110,6 +110,7 @@
                 </div>
               </div>
             </div>
+            
 
             {{-- Form tersembunyi untuk update quantity --}}
             <form
@@ -160,16 +161,21 @@
           </form>
 
           {{-- Tombol Kosongkan Keranjang --}}
-          <div class="mt-4">
-            <form
-              action="{{ route('cart.clear') }}"
-              method="POST"
-              onsubmit="return confirm('Anda yakin ingin mengosongkan seluruh keranjang?')">
+  <div class="mt-4">
+            {{-- Hapus atribut onsubmit dari form ini --}}
+            <form action="{{ route('cart.clear') }}" method="POST" id="clear-cart-form">
               @csrf
               @method('DELETE')
               <button
-                type="submit"
-                class="w-full text-sm text-red-600 underline hover:text-red-800">
+                type="button" {{-- UBAH INI KE type="button" --}}
+                class="w-full text-sm text-red-600 underline hover:text-red-800"
+                @click="window.confirmModal({
+                    formId: 'clear-cart-form',
+                    actionText: 'Anda yakin ingin mengosongkan seluruh keranjang?',
+                    confirmCallback: () => {
+                        document.getElementById('clear-cart-form').submit();
+                    }
+                })">
                 Kosongkan Keranjang
               </button>
             </form>
@@ -178,6 +184,54 @@
       @endif
     </div>
   </main>
+
+  {{-- MODAL KONFIRMASI (Dengan ikon yang diubah) --}}
+  <div x-data="{ show: false, formId: null, actionText: '', confirmCallback: null }"
+      x-show="show"
+      x-transition:enter="ease-out duration-300"
+      x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+      x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+      x-transition:leave="ease-in duration-200"
+      x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+      x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+      class="fixed inset-0 z-[9999] overflow-y-auto"
+      aria-labelledby="modal-title" role="dialog" aria-modal="true"
+      style="display: none;" {{-- Hidden by default, Alpine.js will manage this --}}>
+
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+          <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+              <div class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                  <div>
+                      {{-- ICON BARU: question-circle dari Font Awesome --}}
+                      <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
+                          <i class="fas fa-question-circle text-3xl text-blue-600"></i> {{-- Menggunakan Font Awesome --}}
+                      </div>
+                      <div class="mt-3 text-center sm:mt-5">
+                          <h3 class="text-lg font-semibold leading-6 text-gray-900" id="modal-title" x-text="actionText"></h3>
+                          <div class="mt-2">
+                              <p class="text-sm text-gray-500">
+                                  Tindakan ini tidak dapat dibatalkan.
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                      <button type="button"
+                          @click="if (confirmCallback) { confirmCallback(); }; show = false;"
+                          class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 sm:col-start-2">
+                          Ya, Lanjutkan!
+                      </button>
+                      <button type="button"
+                          @click="show = false"
+                          class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0">
+                          Batal
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
 @endsection
 
 @push('scripts')
@@ -237,6 +291,24 @@
           btnCheckout.classList.remove('opacity-50', 'pointer-events-none')
         }
       }
+
+      // Fungsi Kosongkan Keranjang
+      window.confirmModal = (options) => {
+        let modal = document.querySelector('[x-data*="confirmCallback"]')._x_dataStack[0];
+        // Pastikan modal ditemukan sebelum mencoba mengakses propertinya
+        if (modal) {
+            modal.formId = options.formId || null;
+            modal.actionText = options.actionText || 'Anda yakin?';
+            modal.confirmCallback = options.confirmCallback || null;
+            modal.show = true;
+        } else {
+            console.error('Confirm modal element not found for Alpine.js data binding.');
+            // Fallback ke confirm() bawaan jika modal tidak ditemukan (opsional)
+            if (options.confirmCallback && confirm(options.actionText + '\n' + 'Tindakan ini tidak dapat dibatalkan.')) {
+                options.confirmCallback();
+            }
+        }
+    }
 
       // Fungsi untuk submit update quantity
       function submitQuantityUpdate(itemId, newQuantity) {

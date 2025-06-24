@@ -53,7 +53,7 @@
             <a href="#" class="hover:text-red-200"><i class="fab fa-instagram"></i></a>
           </div>
           <div class="flex items-center space-x-4">
-             <a href="{{ route('home') }}" class="hover:text-red-200">
+            <a href="{{ route('home') }}" class="hover:text-red-200">
               <i class="fas fa-home mr-1"></i>
               Home
             </a>
@@ -68,7 +68,6 @@
       <!-- Main Header -->
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-20 items-center justify-between">
-          <!-- Logo -->
           <!-- Logo -->
           <div class="flex-shrink-0">
             <a href="javascript:void(0)" class="flex items-center space-x-3 cursor-default select-none">
