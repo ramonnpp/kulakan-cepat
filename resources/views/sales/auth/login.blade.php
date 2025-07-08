@@ -79,11 +79,11 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center justify-between text-sm">
+                    {{-- <div class="flex items-center justify-between text-sm">
                         <a href="#" class="font-medium text-red-600 hover:text-red-500">
                             Lupa password?
                         </a>
-                    </div>
+                    </div> --}}
 
                     <div>
                         <button type="submit"

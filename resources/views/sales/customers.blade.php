@@ -51,6 +51,7 @@
         <div class="hidden md:block overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead class="bg-gray-50 dark:bg-gray-700/50">
+                     {{-- Header Tabel --}}
                 </thead>
                 <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                     @forelse ($customers as $customer)
@@ -77,10 +78,10 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                {{ optional($customer->transactions->last())->date_transaction ? \Carbon\Carbon::parse(optional($customer->transactions->last())->date_transaction)->isoFormat('D MMM YYYY') : 'N/A' }}
+                                {{ optional($customer->transactions->last())->date_transaction ? \Carbon\Carbon::parse(optional($customer->transactions->last())->date_transaction)->isoFormat('D MMM YY') : 'N/A' }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="{{ route('sales.customer.detail', ['id' => $customer->id_customer]) }}"
+                                 <a href="{{ route('sales.customers.show', $customer) }}"
                                     class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300">Lihat
                                     Detail</a>
                             </td>
@@ -120,10 +121,10 @@
                         <div class="text-sm text-gray-500 dark:text-gray-400">
                             <p>Order Terakhir:</p>
                             <p class="font-semibold">
-                                {{ optional($customer->transactions->last())->date_transaction ? \Carbon\Carbon::parse(optional($customer->transactions->last())->date_transaction)->isoFormat('D MMM YYYY') : 'N/A' }}
+                                {{ optional($customer->transactions->last())->date_transaction ? \Carbon\Carbon::parse(optional($customer->transactions->last())->date_transaction)->isoFormat('D MMM YY') : 'N/A' }}
                             </p>
                         </div>
-                        <a href="{{ route('sales.customer.detail', ['id' => $customer->id_customer]) }}"
+                         <a href="{{ route('sales.customers.show', $customer) }}"
                             class="px-4 py-2 bg-red-600 text-white text-sm font-semibold rounded-lg shadow-sm hover:bg-red-700">
                             Detail
                         </a>
