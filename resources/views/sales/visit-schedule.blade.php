@@ -22,11 +22,6 @@
             </button>
         </div>
 
-        @if (session('success'))
-            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
-                <p>{{ session('success') }}</p>
-            </div>
-        @endif
 
         <div class="bg-white dark:bg-gray-800 p-2 md:p-6 rounded-xl shadow-md">
             <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4 px-4 md:px-0">Daftar Jadwal Anda</h2>
@@ -129,7 +124,7 @@
                         <div><label
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Pelanggan</label><select
                                 name="id_customer" required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:border-indigo-500 focus:ring-indigo-500">
                                 @foreach ($customers as $customer)
                                     <option value="{{ $customer->id_customer }}">{{ $customer->name_store }}</option>
                                 @endforeach
@@ -137,22 +132,22 @@
                         </div>
                         <div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tujuan
                                 Kunjungan</label><input type="text" name="title" required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:border-indigo-500 focus:ring-indigo-500">
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Waktu
                                     Mulai</label><input type="datetime-local" name="start_time" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500">
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:border-indigo-500 focus:ring-indigo-500">
                             </div>
                             <div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Waktu
                                     Selesai</label><input type="datetime-local" name="end_time" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500">
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:border-indigo-500 focus:ring-indigo-500">
                             </div>
                         </div>
                         <div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Catatan
                                 (Opsional)</label>
                             <textarea name="notes" rows="3"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:border-indigo-500 focus:ring-indigo-500"></textarea>
                         </div>
                     </div>
                     <div class="mt-6 flex justify-end gap-3"><button type="button" @click="showAddModal = false"
@@ -174,7 +169,7 @@
                         <div><label
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Pelanggan</label><select
                                 name="id_customer" required x-model="scheduleToEdit.id_customer"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:border-indigo-500 focus:ring-indigo-500">
                                 @foreach ($customers as $customer)
                                     <option value="{{ $customer->id_customer }}">{{ $customer->name_store }}</option>
                                 @endforeach
@@ -182,24 +177,24 @@
                         <div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tujuan
                                 Kunjungan</label><input type="text" name="title" required
                                 x-model="scheduleToEdit.title"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:border-indigo-500 focus:ring-indigo-500">
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Waktu
                                     Mulai</label><input type="datetime-local" name="start_time" required
                                     :value="scheduleToEdit.start_time ? scheduleToEdit.start_time.slice(0, 16) : ''"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500">
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:border-indigo-500 focus:ring-indigo-500">
                             </div>
                             <div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Waktu
                                     Selesai</label><input type="datetime-local" name="end_time" required
                                     :value="scheduleToEdit.end_time ? scheduleToEdit.end_time.slice(0, 16) : ''"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500">
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:border-indigo-500 focus:ring-indigo-500">
                             </div>
                         </div>
                         <div><label
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Status</label><select
                                 name="status" required x-model="scheduleToEdit.status"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:border-indigo-500 focus:ring-indigo-500">
                                 <option>Pending</option>
                                 <option>Completed</option>
                                 <option>Cancelled</option>
@@ -207,7 +202,7 @@
                         <div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Catatan
                                 (Opsional)</label>
                             <textarea name="notes" rows="3" x-model="scheduleToEdit.notes"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:border-indigo-500 focus:ring-indigo-500"></textarea>
                         </div>
                     </div>
                     <div class="mt-6 flex justify-end gap-3"><button type="button" @click="showEditModal = false"
