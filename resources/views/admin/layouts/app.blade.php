@@ -18,7 +18,6 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
     <style>
-      /* Menyembunyikan elemen yang belum diinisialisasi oleh Alpine.js untuk mencegah 'flickering' */
       [x-cloak] {
         display: none !important;
       }
