@@ -1,17 +1,23 @@
-{{--
-  File ini adalah template untuk satu kartu produk.
-  Mengharapkan variabel $product untuk dilewatkan.
---}}
+{{-- File ini adalah template untuk satu kartu produk. Mengharapkan variabel $product untuk dilewatkan. --}}
+@php
+  $imgSrc = $product->image_path
+    ? (\Illuminate\Support\Str::startsWith($product->image_path, ['http://', 'https://'])
+      ? $product->image_path
+      : asset('storage/' . $product->image_path))
+    : 'https://placehold.co/300x200/e2e8f0/94a3b8?text=Gambar';
+@endphp
+
 <div class="card-hover product-card flex flex-col overflow-hidden rounded-2xl bg-white shadow-lg">
   {{-- Tautan ke halaman detail produk --}}
   <a href="{{ route('product.show', $product) }}" class="block">
     <div class="flex h-48 items-center justify-center overflow-hidden bg-gray-100">
       <img
-        src="{{ $product->image_path ? asset('storage/' . $product->image_path) : 'https://placehold.co/300x200/e2e8f0/94a3b8?text=Gambar' }}"
+        src="{{ $imgSrc }}"
         alt="{{ $product->name_product }}"
         class="h-full w-full object-cover transition-transform duration-300 hover:scale-110" />
     </div>
   </a>
+
   <div class="flex flex-grow flex-col p-5">
     {{-- Kategori Produk --}}
     @if ($product->category)
