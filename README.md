@@ -1,5 +1,5 @@
 # kulakancepat
 install terlebih dahulu : 
-composer update 
-npm i
-composer require laravel/socialite
+<p>composer update</p> 
+<p>npm i</p> 
+<p>composer require laravel/socialite</p> 
