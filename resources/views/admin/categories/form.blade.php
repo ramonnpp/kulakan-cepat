@@ -28,4 +28,28 @@
             <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
         @enderror
     </div>
+
+    {{-- Input Icon BARU --}}
+    <div>
+        <label for="icon" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Ikon Kategori</label>
+        <input type="file" name="icon" id="icon" class="mt-1 block w-full text-sm text-gray-500
+            file:mr-4 file:py-2 file:px-4
+            file:rounded-lg file:border-0
+            file:text-sm file:font-semibold
+            file:bg-red-50 file:text-red-700
+            hover:file:bg-red-100
+        "/>
+        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Kosongkan jika tidak ingin mengubah ikon.</p>
+        @error('icon')
+            <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
+        @enderror
+    </div>
+
+    {{-- Preview Ikon Saat Ini (hanya untuk halaman edit) --}}
+    @if(isset($category) && $category->icon)
+    <div class="mt-2">
+        <p class="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Ikon Saat Ini:</p>
+        <img src="{{ Storage::url($category->icon) }}" alt="Ikon {{ $category->name }}" class="h-16 w-16 rounded-md object-cover border p-1">
+    </div>
+    @endif
 </div>
