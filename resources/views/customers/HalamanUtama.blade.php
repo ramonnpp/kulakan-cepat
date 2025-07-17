@@ -4,7 +4,7 @@
 
 @section('content')
   <main class="bg-white">
-    <section class="relative overflow-hidden bg-gradient-to-r from-red-200 from-10% via-red-100 via-30% to-red-200 to-90%">
+    <section class="relative overflow-hidden bg-gray-50">
       <div class="mx-auto max-w-7xl">
         <div class="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:w-full lg:max-w-2xl lg:pb-28 xl:pb-32">
           <svg
@@ -57,7 +57,7 @@
                 <div class="mt-3 sm:ml-3 sm:mt-0">
                   <a
                     href="#"
-                    class="flex w-full items-center justify-center rounded-md border border-transparent bg-white px-8 py-3 text-base font-medium text-red-700 transition-colors hover:bg-red-200 md:px-10 md:py-4 md:text-lg">
+                    class="flex w-full items-center justify-center rounded-md border border-transparent bg-red-100 px-8 py-3 text-base font-medium text-red-700 transition-colors hover:bg-red-200 md:px-10 md:py-4 md:text-lg">
                     Cara Kerja
                   </a>
                 </div>

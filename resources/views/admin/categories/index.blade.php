@@ -39,7 +39,7 @@
                         </td>
                         <td class="px-5 py-4 text-slate-600 dark:text-slate-300 max-w-sm truncate">{{ Str::limit($category->description, 70) ?? '-' }}</td>
                         <td class="px-5 py-4 whitespace-nowrap text-center text-slate-600 dark:text-slate-300">
-                            {{ $category->products_count ?? 0 }}
+                            {{ $category->products_count ?? 0 }} {{-- Asumsi ada relasi count di model ProductCategory --}}
                         </td>
                         <td class="px-5 py-4 whitespace-nowrap text-right text-sm">
                             <div class="flex items-center justify-end gap-2">

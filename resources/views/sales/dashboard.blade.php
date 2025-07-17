@@ -28,11 +28,11 @@
         <p class="text-xs text-gray-500 dark:text-gray-400 mt-3">Total pesanan di bulan {{ \Carbon\Carbon::now()->isoFormat('MMMM') }}.</p>
     </div>
     
-    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-transparent hover:border-yellow-500 transform transition duration-300 hover:shadow-lg hover:-translate-y-1">
-        <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">Pelanggan Aktif</h2>
-        <p class="text-3xl font-black text-yellow-600 dark:text-yellow-400">N/A</p>
-         <p class="text-xs text-gray-500 dark:text-gray-400 mt-3">Jumlah pelanggan yang Anda tangani.</p>
-    </div>
+   <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-transparent hover:border-yellow-500 transform transition duration-300 hover:shadow-lg hover:-translate-y-1">
+    <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">Pelanggan yang Aktif</h2>
+    <p class="text-3xl font-black text-yellow-600 dark:text-yellow-400">{{ $activeCustomersCount ?? 0 }} <span class="text-lg">Pelanggan</span></p>
+    <p class="text-xs text-gray-500 dark:text-gray-400 mt-3">Jumlah pelanggan yang Anda tangani.</p>
+</div>
 </div>
 
 {{-- Grid Responsif untuk Bagian Bawah --}}

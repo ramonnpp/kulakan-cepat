@@ -187,59 +187,89 @@
     </main>
 
     <!-- Footer Konsisten -->
-   <footer class="bg-gray-900 text-gray-300 py-8">
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <!-- Kolom KulakanCepat -->
-            <div>
-                <h3 class="text-xl font-bold mb-4 text-white">KulakanCepat</h3>
-                <p class="text-sm">Platform grosir digital terdepan yang menghubungkan merchant dengan toko retail di seluruh Indonesia.</p>
-                <div class="flex space-x-4 mt-4">
-                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
-                </div>
+    <footer class="bg-gray-900 py-16 text-white">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6">
+        <div class="mb-8 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <!-- Company Info -->
+          <div>
+            <div class="mb-6 flex items-center space-x-3">
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg">
+                <img src="{{ asset('img/Logo Kulakan/1x/Artboard 1 copy 3.png') }}" alt="" />
+                <img src="{{ asset('images/logo/Artboard 1 copy 3.png') }}" alt="" />
+              </div>
+              <span class="text-xl font-bold">KulakanCepat</span>
             </div>
+            <p class="mb-4 text-gray-400">
+              Platform grosir digital terdepan yang menghubungkan merchant dengan toko retail di
+              seluruh Indonesia.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800 transition-colors hover:bg-red-700">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a
+                href="#"
+                class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800 transition-colors hover:bg-red-700">
+                <i class="fab fa-facebook"></i>
+              </a>
+              <a
+                href="#"
+                class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800 transition-colors hover:bg-red-700">
+                <i class="fab fa-youtube"></i>
+              </a>
+              <a
+                href="#"
+                class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800 transition-colors hover:bg-red-700">
+                <i class="fab fa-linkedin"></i>
+              </a>
+            </div>
+          </div>
 
-            <!-- Kolom Produk -->
-            <div>
-                <h3 class="text-lg font-semibold mb-4 text-white">Produk</h3>
-                <ul class="space-y-2">
-                    <li><a href="{{ url('/produk/untuk-merchant') }}" class="hover:underline">Untuk Merchant</a></li>
-                    <li><a href="{{ url('/produk/untuk-toko') }}" class="hover:underline">Untuk Toko</a></li>
-                    <li><a href="{{ url('/produk/sistem-pembayaran') }}" class="hover:underline">Sistem Pembayaran</a></li>
-                    <li><a href="{{ url('/produk/logistik') }}" class="hover:underline">Logistik</a></li>
-                </ul>
-            </div>
+          <!-- Products -->
+          <div>
+            <h3 class="mb-4 text-lg font-bold">Produk</h3>
+            <ul class="space-y-2 text-gray-400">
+              <li><a href="#" class="transition-colors hover:text-white">Untuk Merchant</a></li>
+              <li><a href="#" class="transition-colors hover:text-white">Untuk Toko</a></li>
+              <li><a href="#" class="transition-colors hover:text-white">Sistem Pembayaran</a></li>
+              <li><a href="#" class="transition-colors hover:text-white">Logistik</a></li>
+            </ul>
+          </div>
 
-            <!-- Kolom Perusahaan -->
-            <div>
-                <h3 class="text-lg font-semibold mb-4 text-white">Perusahaan</h3>
-                <ul class="space-y-2">
-                    <li><a href="{{ url('/perusahaan/tentang-kami') }}" class="hover:underline">Tentang Kami</a></li>
-                    <li><a href="{{ url('/perusahaan/karir') }}" class="hover:underline">Karir</a></li>
-                    <li><a href="{{ url('/perusahaan/blog') }}" class="hover:underline">Blog</a></li>
-                    <li><a href="{{ url('/perusahaan/press-release') }}" class="hover:underline">Press Release</a></li>
-                </ul>
-            </div>
+          <!-- Company -->
+          <div>
+            <h3 class="mb-4 text-lg font-bold">Perusahaan</h3>
+            <ul class="space-y-2 text-gray-400">
+              <li><a href="#" class="transition-colors hover:text-white">Tentang Kami</a></li>
+              <li><a href="#" class="transition-colors hover:text-white">Karir</a></li>
+              <li><a href="#" class="transition-colors hover:text-white">Blog</a></li>
+              <li><a href="#" class="transition-colors hover:text-white">Press Release</a></li>
+            </ul>
+          </div>
 
-            <!-- Kolom Dukungan -->
-            <div>
-                <h3 class="text-lg font-semibold mb-4 text-white">Dukungan</h3>
-                <ul class="space-y-2">
-                    <li><a href="{{ url('/dukungan/pusat-bantuan') }}" class="hover:underline">Pusat Bantuan</a></li>
-                    <li><a href="{{ url('/dukungan/syarat-ketentuan') }}" class="hover:underline">Syarat & Ketentuan</a></li>
-                    <li><a href="{{ url('/dukungan/kebijakan-privasi') }}" class="hover:underline">Kebijakan Privasi</a></li>
-                    <li><a href="{{ url('/dukungan/kontak') }}" class="hover:underline">Kontak</a></li>
-                </ul>
-            </div>
+          <!-- Support -->
+          <div>
+            <h3 class="mb-4 text-lg font-bold">Dukungan</h3>
+            <ul class="space-y-2 text-gray-400">
+              <li><a href="#" class="transition-colors hover:text-white">Pusat Bantuan</a></li>
+              <li><a href="#" class="transition-colors hover:text-white">Syarat & Ketentuan</a></li>
+              <li><a href="#" class="transition-colors hover:text-white">Kebijakan Privasi</a></li>
+              <li><a href="#" class="transition-colors hover:text-white">Kontak</a></li>
+            </ul>
+          </div>
         </div>
-        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm">
-            &copy; {{ date('Y') }} KulakanCepat. All rights reserved. Universitas Amikom Yogyakarta. Kampus Tercintah.
+
+        <!-- Bottom Footer -->
+        <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+          <p>
+            &copy; 2024 KulakanCepat. All rights reserved. | Designed with ❤️ for Indonesian UMKM
+          </p>
         </div>
-    </div>
-</footer>
+      </div>
+    </footer>
+
     @stack('scripts')
   </body>
 </html>

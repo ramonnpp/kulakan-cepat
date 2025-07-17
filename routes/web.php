@@ -81,31 +81,3 @@ Route::middleware('auth:customer')->group(function () {
     Route::get('/orders', [OrderDetailController::class, 'index'])->name('order.history');
     Route::get('/orders/{transaction}', [OrderDetailController::class, 'show'])->name('order.show');
 });
-
-// Rute untuk Perusahaan
-Route::get('/perusahaan/tentang-kami', function () {
-    return view('pages.perusahaan.tentang_kami');
-});
-Route::get('/perusahaan/karir', function () {
-    return view('pages.perusahaan.karir');
-});
-Route::get('/perusahaan/blog', function () {
-    return view('pages.perusahaan.blog');
-});
-Route::get('/perusahaan/press-release', function () {
-    return view('pages.perusahaan.press_release');
-});
-
-// Rute untuk Dukungan
-Route::get('/dukungan/pusat-bantuan', function () {
-    return view('pages.dukungan.pusat_bantuan');
-});
-Route::get('/dukungan/syarat-ketentuan', function () {
-    return view('pages.dukungan.syarat_ketentuan');
-});
-Route::get('/dukungan/kebijakan-privasi', function () {
-    return view('pages.dukungan.kebijakan_privasi');
-});
-Route::get('/dukungan/kontak', function () {
-    return view('pages.dukungan.kontak');
-});
