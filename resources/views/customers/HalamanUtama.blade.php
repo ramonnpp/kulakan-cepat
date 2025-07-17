@@ -75,34 +75,36 @@
     </section>
 
     <section class="bg-white py-16 sm:py-24">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="text-center">
-          <h2 class="text-base font-semibold uppercase tracking-wider text-red-600">
-            Kategori Populer
-          </h2>
-        </div>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="text-center">
+      <h2 class="text-base font-semibold uppercase tracking-wider text-red-600">
+        Kategori Populer
+      </h2>
+    </div>
 
-        <div class="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
-          @foreach ($categories as $category)
-            <a
-              href="{{ route('catalog.index', ['category' => $category->id_product_category]) }}"
-              class="group block text-center">
-              <div class="relative mx-auto flex h-24 w-24 items-center justify-center">
-                <div
-                  class="absolute h-full w-full rounded-full bg-gray-100 transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:bg-red-100"></div>
-
-                <i
-                  class="{{ $category->icon ?? 'fas fa-box' }} relative z-10 text-3xl text-gray-600 transition-colors duration-300 group-hover:text-red-600"></i>
-              </div>
-              <h3
-                class="mt-4 text-base font-semibold text-gray-800 transition-colors duration-300 group-hover:text-red-600">
-                {{ $category->name }}
-              </h3>
-            </a>
-          @endforeach
-        </div>
-      </div>
-    </section>
+    <div class="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
+      @foreach ($categories as $category)
+        <a href="{{ route('catalog.index', ['category' => $category->id_product_category]) }}" class="group block text-center">
+          
+          {{-- PERBAIKAN UTAMA ADA DI SINI --}}
+          <div class="relative mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-gray-100 transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:bg-red-100">
+              @if($category->icon)
+                  {{-- Jika ada ikon, tampilkan menggunakan tag <img> dan Storage::url() --}}
+                  <img src="{{ Storage::url($category->icon) }}" alt="{{ $category->name }}" class="h-full w-full rounded-full object-contain p-2">
+              @else
+                  {{-- Jika tidak ada ikon, tampilkan ikon kotak sebagai pengganti --}}
+                  <i class="fas fa-box relative z-10 text-3xl text-gray-600 transition-colors duration-300 group-hover:text-red-600"></i>
+              @endif
+          </div>
+          
+          <h3 class="mt-4 text-base font-semibold text-gray-800 transition-colors duration-300 group-hover:text-red-600">
+              {{ $category->name }}
+          </h3>
+        </a>
+      @endforeach
+    </div>
+  </div>
+</section>
 
     <section class="bg-white py-16 sm:py-24">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

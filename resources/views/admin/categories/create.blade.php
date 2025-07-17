@@ -21,7 +21,7 @@
     @if ($errors->any())<div class="mb-4 p-4 text-sm text-red-800 rounded-lg bg-red-100 dark:bg-red-500/20 dark:text-red-400" role="alert"><span class="font-medium">Oops!</span> Terjadi beberapa kesalahan dengan input Anda.</div>@endif
 
     <div class="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 shadow-md rounded-xl p-5">
-        <form method="POST" action="{{ route('admin.categories.store') }}">
+        <form method="POST" action="{{ route('admin.categories.store') }}" enctype="multipart/form-data">
             @csrf
             @include('admin.categories.form')
             <div class="mt-6 flex justify-end">

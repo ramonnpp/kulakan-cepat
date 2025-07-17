@@ -21,6 +21,7 @@ class ProductCategory extends Model
     protected $fillable = [
         'name',
         'description',
+        'icon',
         // 'slug', // Jika sebelumnya ada slug dan sekarang dihapus, pastikan ini tidak ada
     ];
 

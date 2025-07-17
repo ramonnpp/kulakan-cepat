@@ -36,7 +36,7 @@
     @endif
 
     <div class="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 shadow-md rounded-xl p-5">
-        <form method="POST" action="{{ $formAction }}">
+        <form method="POST" action="{{ $formAction }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
