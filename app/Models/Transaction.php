@@ -8,39 +8,64 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
-
-    protected $table = 'transaction';
-    protected $primaryKey = 'id_transaction';
     public $timestamps = false;
+    /**
+     * Nama tabel yang terhubung dengan model.
+     *
+     * @var string
+     */
+    protected $table = 'transaction';
 
     /**
-     * Atribut yang boleh diisi secara massal (mass assignable).
+     * Primary key untuk model.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'id_transaction';
+
+    /**
+     * Atribut yang dapat diisi secara massal.
+     *
+     * @var array
      */
     protected $fillable = [
+        'id_customer',
+        'invoice_number',
         'date_transaction',
         'total_price',
-        'status',
         'method_payment',
-        'id_customer',
+        'status',
         'payment_due_date',
         'paid_at',
+        'shipping_address',
+        'shipping_cost',
     ];
 
     /**
-     * Atribut yang harus di-cast ke tipe data tertentu.
+     * Casting tipe data untuk atribut.
+     *
+     * @var array
      */
     protected $casts = [
         'total_price' => 'decimal:2',
+        'shipping_cost' => 'decimal:2',
         'date_transaction' => 'datetime',
         'payment_due_date' => 'datetime',
         'paid_at' => 'datetime',
+        'shipping_address' => 'array', // **PERBAIKAN UTAMA DI SINI**
     ];
 
+    /**
+     * Relasi ke model Customer.
+     */
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'id_customer', 'id_customer');
     }
 
+    /**
+     * Relasi ke model TransactionDetail.
+     */
     public function details()
     {
         return $this->hasMany(TransactionDetail::class, 'id_transaction', 'id_transaction');

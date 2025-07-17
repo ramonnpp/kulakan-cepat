@@ -48,13 +48,17 @@
     }">
     <div class="grid grid-cols-1 gap-6 md:grid-cols-4">
       <aside class="md:col-span-1">
-        <div class="sticky top-24 rounded-lg bg-white p-4 text-center shadow-sm">
-          <img
-            src="{{ $user->avatar ? asset('storage/' . $user->avatar) : 'https://i.pravatar.cc/150?u=' . $user->id_customer }}"
-            class="mx-auto mb-4 h-24 w-24 rounded-full border-4 border-white object-cover shadow-lg" />
-          <h6 class="truncate text-lg font-bold">{{ $user->name_owner }}</h6>
-          <p class="text-sm text-gray-500">{{ $user->name_store ?? 'Toko Retail' }}</p>
-        </div>
+       <div class="sticky top-24 rounded-lg bg-white p-4 text-center shadow-sm">
+        {{-- BAGIAN INI UNTUK MENAMPILKAN FOTO PROFIL --}}
+       <img
+    {{-- Tambahkan '?v=' diikuti timestamp untuk memaksa browser memuat ulang gambar baru --}}
+    src="{{ $user->avatar ? asset('storage/' . $user->avatar) . '?v=' . time() : 'https://i.pravatar.cc/150?u=' . $user->id_customer }}"
+    class="mx-auto mb-4 h-24 w-24 rounded-full border-4 border-white object-cover shadow-lg"
+    alt="Foto Profil {{ $user->name_owner }}" />
+
+        <h6 class="truncate text-lg font-bold">{{ $user->name_owner }}</h6>
+        <p class="text-sm text-gray-500">{{ $user->name_store ?? 'Toko Retail' }}</p>
+    </div>
         <div class="mt-6 rounded-lg bg-white p-4 text-left shadow-sm">
           <h4 class="mb-3 text-base font-bold text-gray-700">Info Kredit</h4>
           <div class="space-y-3 text-sm">
@@ -176,52 +180,72 @@
               </form>
               <hr class="my-8" />
 
-              <h3 class="mb-6 text-lg font-bold text-gray-800">Ubah Password</h3>
-              <form action="{{ route('password.update') }}" method="POST" class="space-y-6">
-                @csrf
-                @method('POST')
-                <div class="flex items-center">
-                  <label for="current_password" class="w-1/4 font-medium text-gray-500">
-                    Password Saat Ini
-                  </label>
-                  <input
-                    type="password"
-                    id="current_password"
-                    name="current_password"
-                    required
-                    class="w-2/4 rounded-md border-gray-200 focus:border-red-500 focus:ring-red-500" />
-                </div>
-                <div class="flex items-center">
-                  <label for="new_password" class="w-1/4 font-medium text-gray-500">
-                    Password Baru
-                  </label>
-                  <input
-                    type="password"
-                    id="new_password"
-                    name="new_password"
-                    required
-                    class="w-2/4 rounded-md border-gray-200 focus:border-red-500 focus:ring-red-500" />
-                </div>
-                <div class="flex items-center">
-                  <label for="new_password_confirmation" class="w-1/4 font-medium text-gray-500">
-                    Konfirmasi Password
-                  </label>
-                  <input
-                    type="password"
-                    id="new_password_confirmation"
-                    name="new_password_confirmation"
-                    required
-                    class="w-2/4 rounded-md border-gray-200 focus:border-red-500 focus:ring-red-500" />
-                </div>
-                <div class="flex">
-                  <div class="w-1/4"></div>
-                  <button
-                    type="submit"
-                    class="rounded-lg bg-red-600 px-8 py-2 text-white transition-colors hover:bg-red-700">
-                    Ubah Password
-                  </button>
-                </div>
-              </form>
+              {{-- Ganti bagian form password lama Anda dengan ini --}}
+    <h3 class="text-xl font-bold text-gray-800 mb-6">Ubah Password</h3>
+    <form action="{{ route('password.update') }}" method="POST" class="space-y-6">
+        @csrf
+        @method('POST') {{-- Laravel akan menangani ini sebagai request POST --}}
+
+        {{-- Input Password Saat Ini --}}
+        <div>
+            <label for="current_password" class="block text-sm font-medium text-gray-700 mb-1">
+                Password Saat Ini
+            </label>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <i class="fas fa-lock text-gray-400"></i>
+                </span>
+                <input type="password" id="current_password" name="current_password" required
+                       class="w-full pl-10 pr-3 py-2 border rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500
+                              {{ $errors->has('current_password') ? 'border-red-500' : 'border-gray-300' }}">
+            </div>
+            @error('current_password')
+                <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+
+        {{-- Input Password Baru --}}
+        <div>
+            <label for="new_password" class="block text-sm font-medium text-gray-700 mb-1">
+                Password Baru
+            </label>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <i class="fas fa-key text-gray-400"></i>
+                </span>
+                <input type="password" id="new_password" name="new_password" required
+                       class="w-full pl-10 pr-3 py-2 border rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500
+                              {{ $errors->has('new_password') ? 'border-red-500' : 'border-gray-300' }}">
+            </div>
+            <p class="mt-1 text-xs text-gray-500">Minimal 8 karakter.</p>
+            @error('new_password')
+                <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+
+        {{-- Input Konfirmasi Password --}}
+        <div>
+            <label for="new_password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">
+                Konfirmasi Password Baru
+            </label>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <i class="fas fa-key text-gray-400"></i>
+                </span>
+                <input type="password" id="new_password_confirmation" name="new_password_confirmation" required
+                       class="w-full pl-10 pr-3 py-2 border rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500 border-gray-300">
+            </div>
+        </div>
+
+        {{-- Tombol Simpan --}}
+        <div class="flex justify-end pt-4">
+            <button type="submit"
+                    class="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-300">
+                <i class="fas fa-save"></i>
+                <span>Ubah Password</span>
+            </button>
+        </div>
+    </form>
             </div>
 
             <div id="alamat" x-show="activeTab === 'alamat'">

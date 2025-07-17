@@ -119,15 +119,18 @@
             @auth('customer')
               <div x-data="{ open: false }" class="relative">
                 <button
-                  @click="open = !open"
-                  class="flex cursor-pointer items-center space-x-2 rounded-full bg-gray-100 py-1 pl-1 pr-4 transition-colors hover:bg-gray-200 focus:outline-none">
-                  <img
-                    src="{{ Auth::guard('customer')->user()->profile_photo_path ? asset('storage/' . Auth::guard('customer')->user()->profile_photo_path) : 'https://i.pravatar.cc/40?u=' . Auth::guard('customer')->user()->email }}"
-                    class="h-9 w-9 rounded-full object-cover" />
-                  <span class="hidden text-sm font-medium lg:block">
-                    {{ Str::words(Auth::guard('customer')->user()->name_owner, 2, '') }}
-                  </span>
-                </button>
+    @click="open = !open"
+    class="flex cursor-pointer items-center space-x-2 rounded-full bg-gray-100 py-1 pl-1 pr-4 transition-colors hover:bg-gray-200 focus:outline-none">
+    {{-- LOGIKA BARU UNTUK FOTO PROFIL --}}
+    <img
+        src="{{ Auth::guard('customer')->user()->avatar ? asset('storage/' . Auth::guard('customer')->user()->avatar) : 'https://ui-avatars.com/api/?name=' . urlencode(Auth::guard('customer')->user()->name_owner) . '&background=b91c1c&color=ffffff&bold=true' }}"
+        alt="Foto Profil"
+        class="h-9 w-9 rounded-full object-cover" />
+    
+    <span class="hidden text-sm font-medium lg:block">
+        {{ Str::words(Auth::guard('customer')->user()->name_owner, 2, '') }}
+    </span>
+</button>
                 <div
                   x-show="open"
                   @click.away="open = false"
