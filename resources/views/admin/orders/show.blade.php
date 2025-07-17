@@ -79,7 +79,7 @@
                                     <option value="CANCEL" @if($transaction->status == 'CANCEL') selected @endif>Batal</option>
                                 </select>
                              </div>
-                             <button type="submit" class="inline-flex items-center justify-center h-9 gap-2 px-4 text-sm font-medium text-white bg-primary rounded-lg shadow-sm hover:bg-primary/90">Perbarui</button>
+                             <button type="submit" class="inline-flex items-center justify-center h-9 gap-2 px-4 text-sm font-medium text-white bg-primary rounded-lg shadow-sm hover:bg-primary/90 dark:bg-slate-700">Perbarui</button>
                          </div>
                      </form>
                  </div>
