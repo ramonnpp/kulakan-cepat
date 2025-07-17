@@ -82,7 +82,7 @@
                             </span>
                         </td>
                         <td class="px-5 py-4 whitespace-nowrap text-right text-sm">
-                            <a href="{{ route('admin.orders.show', $transaction->id_transaction) }}" class="font-medium text-primary hover:text-primary/80">Lihat Detail</a>
+                            <a href="{{ route('admin.orders.show', $transaction->id_transaction) }}" class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300">Lihat Detail</a>
                         </td>
                     </tr>
                     @empty
