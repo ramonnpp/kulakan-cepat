@@ -30,6 +30,7 @@ class Customer extends Authenticatable
         'customer_tier_id',
         'credit_limit',
         'avatar',
+        'google_id',
     ];
 
     protected $hidden = [
