@@ -46,11 +46,8 @@ class RegisterController extends Controller
         'customer_tier_id' => null,
       ]);
     } catch (\Exception $e) {
-      // JIKA ADA ERROR APAPUN saat create, hentikan semua dan tampilkan pesannya.
-      // Pesan error ini adalah kunci masalah kita.
       dd($e->getMessage());
     }
-    // --- AKHIR BAGIAN DEBUGGING ---
 
     return redirect()->route('auth.pending');
   }

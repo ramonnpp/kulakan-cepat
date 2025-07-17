@@ -80,6 +80,6 @@ class GoogleController extends Controller
         ]);
 
         session()->forget('google_user_data');
-        return redirect()->route('login')->with('status', 'Pendaftaran berhasil! Akun Anda akan segera diaktifkan oleh admin.');
+        return redirect()->route('auth.pending');
     }
 }
