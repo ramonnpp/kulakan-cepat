@@ -4,7 +4,7 @@
 
 @section('content')
   <main class="bg-white">
-    <section class="relative overflow-hidden bg-gray-50">
+    <section class="relative overflow-hidden bg-gradient-to-r from-red-200 from-10% via-red-100 via-30% to-red-200 to-90%">
       <div class="mx-auto max-w-7xl">
         <div class="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:w-full lg:max-w-2xl lg:pb-28 xl:pb-32">
           <svg
