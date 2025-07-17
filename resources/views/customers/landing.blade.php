@@ -359,6 +359,7 @@
 
 
 
+
     <section class="gradient-bg text-white py-20">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
             <h2 class="text-4xl lg:text-5xl font-extrabold mb-6">Siap Mengubah Cara Anda Berbisnis?</h2>
@@ -427,6 +428,62 @@
             </div>
         </div>
     </footer>
+
+  <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-8">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Kolom KulakanCepat -->
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-white">KulakanCepat</h3>
+                <p class="text-sm">Platform grosir digital terdepan yang menghubungkan merchant dengan toko retail di seluruh Indonesia.</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <!-- Kolom Produk -->
+            <div>
+                <h3 class="text-lg font-semibold mb-4 text-white">Produk</h3>
+                <ul class="space-y-2">
+                    <li><a href="{{ url('/produk/untuk-merchant') }}" class="hover:underline">Untuk Merchant</a></li>
+                    <li><a href="{{ url('/produk/untuk-toko') }}" class="hover:underline">Untuk Toko</a></li>
+                    <li><a href="{{ url('/produk/sistem-pembayaran') }}" class="hover:underline">Sistem Pembayaran</a></li>
+                    <li><a href="{{ url('/produk/logistik') }}" class="hover:underline">Logistik</a></li>
+                </ul>
+            </div>
+
+            <!-- Kolom Perusahaan -->
+            <div>
+                <h3 class="text-lg font-semibold mb-4 text-white">Perusahaan</h3>
+                <ul class="space-y-2">
+                    <li><a href="{{ url('/perusahaan/tentang-kami') }}" class="hover:underline">Tentang Kami</a></li>
+                    <li><a href="{{ url('/perusahaan/karir') }}" class="hover:underline">Karir</a></li>
+                    <li><a href="{{ url('/perusahaan/blog') }}" class="hover:underline">Blog</a></li>
+                    <li><a href="{{ url('/perusahaan/press-release') }}" class="hover:underline">Press Release</a></li>
+                </ul>
+            </div>
+
+            <!-- Kolom Dukungan -->
+            <div>
+                <h3 class="text-lg font-semibold mb-4 text-white">Dukungan</h3>
+                <ul class="space-y-2">
+                    <li><a href="{{ url('/dukungan/pusat-bantuan') }}" class="hover:underline">Pusat Bantuan</a></li>
+                    <li><a href="{{ url('/dukungan/syarat-ketentuan') }}" class="hover:underline">Syarat & Ketentuan</a></li>
+                    <li><a href="{{ url('/dukungan/kebijakan-privasi') }}" class="hover:underline">Kebijakan Privasi</a></li>
+                    <li><a href="{{ url('/dukungan/kontak') }}" class="hover:underline">Kontak</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm">
+            &copy; {{ date('Y') }} KulakanCepat. All rights reserved. Universitas Amikom Yogyakarta. Kampus Tercintah.
+        </div>
+    </div>
+</footer>
+
 
     <script>
         function toggleMobileMenu() {

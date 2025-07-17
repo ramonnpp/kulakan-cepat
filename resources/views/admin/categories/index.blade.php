@@ -39,8 +39,7 @@
                         </td>
                         <td class="px-5 py-4 text-slate-600 dark:text-slate-300 max-w-sm truncate">{{ Str::limit($category->description, 70) ?? '-' }}</td>
                         <td class="px-5 py-4 whitespace-nowrap text-center text-slate-600 dark:text-slate-300">
-                            {{ $category->products_count ?? 0 }}
-                        </td>
+                            {{ $category->products_count ?? 0 }} 
                         <td class="px-5 py-4 whitespace-nowrap text-right text-sm">
                             <div class="flex items-center justify-end gap-2">
                                 <a href="{{ route('admin.categories.edit', $category->id_product_category) }}" class="p-1.5 text-yellow-600 hover:text-yellow-500 dark:text-yellow-400 dark:hover:text-yellow-300 rounded-md hover:bg-yellow-100 dark:hover:bg-yellow-500/20 transition-colors" title="Edit">

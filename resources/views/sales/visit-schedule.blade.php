@@ -64,10 +64,21 @@
                                     'bg-red-100 text-red-800' => $schedule->status === 'Cancelled',
                                 ])>{{ $schedule->status }}</span></td>
                                 <td class="px-6 py-4 text-right text-sm font-medium">
-                                    <button @click="scheduleToEdit = {{ json_encode($schedule) }}; showEditModal = true"
-                                        class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 mr-3">Edit</button>
-                                    <button @click="scheduleToDelete = {{ $schedule }}; showDeleteModal = true"
-                                        class="text-red-600 hover:text-red-900 dark:text-red-400">Batal</button>
+                                    @if ($schedule->status === 'Pending')
+                                        <form action="{{ route('sales.visit_schedule.complete', $schedule->id) }}" method="POST" class="inline">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="text-green-600 hover:text-green-900 dark:text-green-400 mr-3">Selesaikan</button>
+                                        </form>
+                                        <button @click="scheduleToEdit = {{ json_encode($schedule) }}; showEditModal = true" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 mr-3">Edit</button>
+                                    @elseif ($schedule->status === 'Completed')
+                                        <span class="text-gray-400 cursor-not-allowed mr-3">Edit</span>
+                                    @endif
+                                    @if ($schedule->status !== 'Cancelled')
+                                        <button @click="scheduleToDelete = {{ $schedule }}; showDeleteModal = true" class="text-red-600 hover:text-red-900 dark:text-red-400">Hapus</button>
+                                    @else
+                                         <button @click="scheduleToDelete = {{ $schedule }}; showDeleteModal = true" class="text-red-600 hover:text-red-900 dark:text-red-400">Hapus</button>
+                                    @endif
                                 </td>
                             </tr>
                         @empty
@@ -101,10 +112,24 @@
                         </div>
                         <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">Tujuan: {{ $schedule->title }}</p>
                         <div class="mt-4 border-t border-gray-200 dark:border-gray-600 pt-4 text-right space-x-3">
-                            <button @click="scheduleToEdit = {{ json_encode($schedule) }}; showEditModal = true"
-                                class="px-3 py-1.5 border border-indigo-500 text-indigo-600 text-sm font-semibold rounded-md hover:bg-indigo-50 dark:hover:bg-indigo-900/50">Edit</button>
-                            <button @click="scheduleToDelete = {{ $schedule }}; showDeleteModal = true"
-                                class="px-3 py-1.5 border border-red-500 text-red-600 text-sm font-semibold rounded-md hover:bg-red-50 dark:hover:bg-red-900/50">Batal</button>
+                            @if ($schedule->status === 'Pending')
+                                <form action="{{ route('sales.visit_schedule.complete', $schedule->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="px-3 py-1.5 border border-green-500 text-green-600 text-sm font-semibold rounded-md hover:bg-green-50 dark:hover:bg-green-900/50">Selesaikan</button>
+                                </form>
+                                <button @click="scheduleToEdit = {{ json_encode($schedule) }}; showEditModal = true"
+                                    class="px-3 py-1.5 border border-indigo-500 text-indigo-600 text-sm font-semibold rounded-md hover:bg-indigo-50 dark:hover:bg-indigo-900/50">Edit</button>
+                            @elseif ($schedule->status === 'Completed')
+                                 <button class="px-3 py-1.5 border border-gray-300 text-gray-400 text-sm font-semibold rounded-md cursor-not-allowed">Edit</button>
+                            @endif
+                            @if ($schedule->status !== 'Cancelled')
+                               <button @click="scheduleToDelete = {{ $schedule }}; showDeleteModal = true"
+                                class="px-3 py-1.5 border border-red-500 text-red-600 text-sm font-semibold rounded-md hover:bg-red-50 dark:hover:bg-red-900/50">Hapus</button>
+                            @else
+                                <button @click="scheduleToDelete = {{ $schedule }}; showDeleteModal = true"
+                                class="px-3 py-1.5 border border-red-500 text-red-600 text-sm font-semibold rounded-md hover:bg-red-50 dark:hover:bg-red-900/50">Hapus</button>
+                            @endif
                         </div>
                     </div>
                 @empty

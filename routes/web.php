@@ -12,6 +12,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\OrderDetailController;
+use App\Http\Controllers\Auth\GoogleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,19 +83,10 @@ Route::middleware('auth:customer')->group(function () {
     Route::get('/orders/{transaction}', [OrderDetailController::class, 'show'])->name('order.show');
 });
 
-// Rute untuk Produk
-Route::get('/produk/untuk-merchant', function () {
-    return view('pages.produk.untuk_merchant');
-});
-Route::get('/produk/untuk-toko', function () {
-    return view('pages.produk.untuk_toko');
-});
-Route::get('/produk/sistem-pembayaran', function () {
-    return view('pages.produk.sistem_pembayaran');
-});
-Route::get('/produk/logistik', function () {
-    return view('pages.produk.logistik');
-});
+Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+Route::get('/auth/google/register', [GoogleController::class, 'showRegisterForm'])->name('google.register.form');
+Route::post('/auth/google/register', [GoogleController::class, 'processRegistration'])->name('google.register.process');
 
 // Rute untuk Perusahaan
 Route::get('/perusahaan/tentang-kami', function () {
@@ -123,3 +115,5 @@ Route::get('/dukungan/kebijakan-privasi', function () {
 Route::get('/dukungan/kontak', function () {
     return view('pages.dukungan.kontak');
 });
+});
+

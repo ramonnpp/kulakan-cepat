@@ -72,4 +72,17 @@ class VisitScheduleController extends Controller
 
         return redirect()->route('sales.visit_schedule.index')->with('success', 'Jadwal kunjungan berhasil dibatalkan.');
     }
+
+    public function complete(VisitSchedule $schedule)
+    {
+        // Pastikan sales hanya bisa mengubah jadwal miliknya
+        if ((int)$schedule->id_sales !== (int)Auth::guard('sales')->id()) {
+            abort(403, 'Akses ditolak.');
+        }
+
+        // Ubah status menjadi 'Completed'
+        $schedule->update(['status' => 'Completed']);
+
+        return redirect()->route('sales.visit_schedule.index')->with('success', 'Jadwal kunjungan telah ditandai sebagai selesai.');
+    }
 }

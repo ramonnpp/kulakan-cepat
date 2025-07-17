@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
 use App\Models\Product;
+use App\Models\Customer;
 use App\Models\VisitSchedule;
 use Carbon\Carbon;
 use App\Exports\PerformanceReportExport; // Import class Export
@@ -41,6 +42,10 @@ class SalesDashboardController extends Controller
             $query->where('id_sales', $salesId);
         })
             ->whereBetween('date_transaction', [$startOfMonth, $endOfMonth])
+            ->count();
+
+        $activeCustomersCount = Customer::where('id_sales', $salesId)
+            ->where('status', 'ACTIVE')
             ->count();
 
         $topProducts = Product::withSum(['transactionDetails as total_sold' => function ($query) use ($salesId) {
@@ -81,6 +86,7 @@ class SalesDashboardController extends Controller
             'progressPercentage' => $progressPercentage,
             'estimatedCommission' => $estimatedCommission,
             'newOrdersThisMonth' => $newOrdersThisMonth,
+            'activeCustomersCount' => $activeCustomersCount,
             'topProducts' => $topProducts,
             'monthlyChartData' => $monthlyChartData,
         ]);
