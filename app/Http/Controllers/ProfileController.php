@@ -42,19 +42,23 @@ class ProfileController extends Controller
         $validatedData = $request->validate([
             'name_owner' => 'required|string|max:255',
             'name_store' => 'nullable|string|max:255',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:1024',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:1024', // Validasi file gambar
         ]);
 
         try {
+            // Cek jika ada file avatar baru yang diunggah
             if ($request->hasFile('avatar')) {
+                // Hapus avatar lama jika ada
                 if ($customer->avatar) {
                     Storage::disk('public')->delete($customer->avatar);
                 }
+                // Simpan avatar baru di folder 'storage/app/public/avatars'
+                // dan simpan path-nya ke database
                 $validatedData['avatar'] = $request->file('avatar')->store('avatars', 'public');
             }
-            
-            $customer->update($validatedData);
 
+            // Update data customer
+            $customer->update($validatedData);
         } catch (\Exception $e) {
             Log::error('Gagal update profil: ' . $e->getMessage());
             return back()->with('error', 'Gagal memperbarui profil. Silakan coba lagi.');
