@@ -82,20 +82,6 @@ Route::middleware('auth:customer')->group(function () {
     Route::get('/orders/{transaction}', [OrderDetailController::class, 'show'])->name('order.show');
 });
 
-// Rute untuk Produk
-Route::get('/produk/untuk-merchant', function () {
-    return view('pages.produk.untuk_merchant');
-});
-Route::get('/produk/untuk-toko', function () {
-    return view('pages.produk.untuk_toko');
-});
-Route::get('/produk/sistem-pembayaran', function () {
-    return view('pages.produk.sistem_pembayaran');
-});
-Route::get('/produk/logistik', function () {
-    return view('pages.produk.logistik');
-});
-
 // Rute untuk Perusahaan
 Route::get('/perusahaan/tentang-kami', function () {
     return view('pages.perusahaan.tentang_kami');
@@ -122,8 +108,4 @@ Route::get('/dukungan/kebijakan-privasi', function () {
 });
 Route::get('/dukungan/kontak', function () {
     return view('pages.dukungan.kontak');
-});
-
-Route::get('/', function () {
-    return view('welcome'); // Ganti dengan view halaman utama Anda
 });

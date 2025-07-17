@@ -57,7 +57,7 @@
                 <div class="mt-3 sm:ml-3 sm:mt-0">
                   <a
                     href="#"
-                    class="flex w-full items-center justify-center rounded-md border border-transparent bg-red-100 px-8 py-3 text-base font-medium text-red-700 transition-colors hover:bg-red-200 md:px-10 md:py-4 md:text-lg">
+                    class="flex w-full items-center justify-center rounded-md border border-transparent bg-white px-8 py-3 text-base font-medium text-red-700 transition-colors hover:bg-red-200 md:px-10 md:py-4 md:text-lg">
                     Cara Kerja
                   </a>
                 </div>
