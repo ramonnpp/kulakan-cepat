@@ -375,59 +375,7 @@
         </div>
     </section>
 
-    <footer class="bg-gray-900 text-white py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-8">
-                <div>
-                    <div class="flex items-center space-x-3 mb-6">
-                        <div class="w-10 h-10 rounded-lg flex items-center justify-center">
-                            <img src="{{ asset('images/logo/Artboard 1 copy 3.png') }}" alt="Logo Footer">
-                        </div>
-                        <span class="text-xl font-bold">KulakanCepat</span>
-                    </div>
-                    <p class="text-gray-400 mb-6">Platform grosir digital yang menghubungkan merchant dengan toko retail di seluruh Indonesia.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors"><i class="fab fa-youtube"></i></a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 tracking-wider">PRODUK</h3>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">Untuk Merchant</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Untuk Toko</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Pembayaran</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Logistik</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold mb-4 tracking-wider">PERUSAHAAN</h3>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">Tentang Kami</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Karir</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Media</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold mb-4 tracking-wider">DUKUNGAN</h3>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">Pusat Bantuan</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Syarat & Ketentuan</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Kebijakan Privasi</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Hubungi Kami</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-800 pt-8 mt-8 text-center text-gray-500">
-                <p>&copy; 2025 KulakanCepat. All rights reserved. | Dibuat dengan ❤️ untuk UMKM Indonesia</p>
-            </div>
-        </div>
-    </footer>
+    
 
   <!-- Footer -->
     <footer class="bg-gray-900 text-gray-300 py-8">

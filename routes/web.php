@@ -115,5 +115,3 @@ Route::get('/dukungan/kebijakan-privasi', function () {
 Route::get('/dukungan/kontak', function () {
     return view('pages.dukungan.kontak');
 });
-});
-
