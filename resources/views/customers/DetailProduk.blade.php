@@ -4,16 +4,6 @@
 
 @section('content')
   <main>
-    <!-- Breadcrumb -->
-    <div class="mx-auto mt-6 max-w-7xl px-4">
-      <nav class="text-sm text-gray-500">
-        <a href="{{ route('home') }}" class="hover:text-red-700">Home</a>
-        <span class="mx-2">/</span>
-        <a href="{{ route('catalog.index') }}" class="hover:text-red-700">Katalog</a>
-        <span class="mx-2">/</span>
-        <span class="font-semibold text-gray-800">{{ $product->name_product }}</span>
-      </nav>
-    </div>
 
     <!-- Detail Produk -->
     <section class="mx-auto max-w-7xl px-4 py-8">
