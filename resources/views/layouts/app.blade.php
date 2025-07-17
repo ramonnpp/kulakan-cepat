@@ -71,7 +71,6 @@
           <!-- Logo -->
           <div class="flex-shrink-0">
             <a href="javascript:void(0)" class="flex items-center space-x-3 cursor-default select-none">
-            <a href="{{ route('home') }}" class="flex items-center space-x-3">
               <div class="h-12 w-12 overflow-hidden rounded-xl">
                 <img
                   src="{{ asset('img/logo/Artboard 1 copy.png') }}"
