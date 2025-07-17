@@ -123,7 +123,3 @@ Route::get('/dukungan/kebijakan-privasi', function () {
 Route::get('/dukungan/kontak', function () {
     return view('pages.dukungan.kontak');
 });
-
-Route::get('/', function () {
-    return view('welcome'); // Ganti dengan view halaman utama Anda
-});
