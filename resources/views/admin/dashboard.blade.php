@@ -173,7 +173,7 @@
                                 </span>
                             </td>
                             <td class="px-4 py-3 whitespace-nowrap text-right text-sm">
-                                <a href="#" class="font-medium text-primary hover:text-primary/80">Detail</a>
+                                <a href="#" class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300">Detail</a>
                             </td>
                         </tr>
                         @empty

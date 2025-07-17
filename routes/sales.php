@@ -33,6 +33,8 @@ Route::prefix('sales')->name('sales.')->group(function () {
         Route::resource('visit-schedule', VisitScheduleController::class)
             ->except(['show'])
             ->names('visit_schedule');
+        Route::patch('visit-schedule/{schedule}/complete', [VisitScheduleController::class, 'complete'])->name('visit_schedule.complete');
+
 
         // Rute Laporan Kinerja
         Route::get('/performance-report', [SalesDashboardController::class, 'performanceReport'])->name('performance_report');
