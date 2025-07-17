@@ -132,7 +132,7 @@
                 enctype="multipart/form-data"
                 class="space-y-6">
                 @csrf
-                @method('PUT')
+                @method('POST')
                 <div class="flex items-center border-b pb-4">
                   <label class="w-1/4 font-medium text-gray-500">Nama</label>
                   <input
@@ -179,7 +179,7 @@
               <h3 class="mb-6 text-lg font-bold text-gray-800">Ubah Password</h3>
               <form action="{{ route('password.update') }}" method="POST" class="space-y-6">
                 @csrf
-                @method('PUT')
+                @method('POST')
                 <div class="flex items-center">
                   <label for="current_password" class="w-1/4 font-medium text-gray-500">
                     Password Saat Ini
