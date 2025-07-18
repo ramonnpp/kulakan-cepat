@@ -7,105 +7,69 @@
                 <button id="sidebar-toggle" class="lg:hidden text-gray-500 hover:text-gray-600" aria-controls="sidebar"
                     aria-expanded="false">
                     <span class="sr-only">Buka sidebar</span>
-                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="4" y="5" width="16" height="2"></rect>
-                        <rect x="4" y="11" width="16" height="2"></rect>
-                        <rect x="4" y="17" width="16" height="2"></rect>
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="6" y2="6" />
+                        <line x1="4" x2="20" y1="18" y2="18" />
                     </svg>
                 </button>
+            </div>
 
+            <div class="hidden lg:flex flex-1 mx-8 items-center justify-center">
+                <div
+                    class="flex items-center justify-between p-2 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-inner w-full max-w-xl">
+                    {{-- Bagian Kiri: Sapaan (Lebar Otomatis) --}}
+                    <div id="greeting-container"
+                        class="flex items-center space-x-2 text-gray-600 dark:text-gray-300 px-3 flex-shrink-0">
+                        <span id="greeting-icon" class="text-xl"></span>
+                        <div>
+                            <span id="greeting-text" class="font-semibold text-sm"></span>
+                            <span
+                                class="font-semibold text-sm text-gray-800 dark:text-gray-200">{{ Auth::guard('sales')->user()->name }}</span>
+                        </div>
+                    </div>
+
+                    {{-- Bagian Kanan: Tanggal & Waktu --}}
+                    <div id="date-and-time" class="flex items-center justify-end space-x-3 px-3">
+                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 flex-shrink-0"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+                            <line x1="16" x2="16" y1="2" y2="6" />
+                            <line x1="8" x2="8" y1="2" y2="6" />
+                            <line x1="3" x2="21" y1="10" y2="10" />
+                        </svg>
+                        <span id="date-display"
+                            class="text-sm font-semibold text-gray-700 dark:text-gray-200 whitespace-nowrap"></span>
+                        <span class="text-gray-400 dark:text-gray-600">|</span>
+                        <span id="clock"
+                            class="text-sm font-semibold text-gray-700 dark:text-gray-200 whitespace-nowrap"></span>
+                    </div>
+                </div>
             </div>
 
             <div class="flex items-center space-x-4">
-
-                <div class="relative">
-                    <button id="notification-button"
-                        class="relative w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-full text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200">
-                        <span class="sr-only">Lihat notifikasi</span>
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-                            </path>
-                        </svg>
-                        <div
-                            class="absolute top-0 right-0 -mt-1 -mr-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center border-2 border-white dark:border-gray-800 animate-pulse">
-                            <span class="text-xs font-bold text-white">3</span>
-                        </div>
-                    </button>
-
-                    <div id="notification-dropdown"
-                        class="origin-top-right absolute right-0 mt-3 w-80 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl overflow-hidden z-20 hidden animate-fade-in-down">
-                        <div
-                            class="py-3 px-4 font-bold text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700">
-                            Notifikasi
-                        </div>
-                        <ul class="divide-y divide-gray-200 dark:divide-gray-700 max-h-80 overflow-y-auto">
-                            <li
-                                class="p-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-150 cursor-pointer">
-                                <div class="flex items-start space-x-3">
-                                    <div
-                                        class="w-10 h-10 bg-green-100 dark:bg-green-800/50 rounded-full flex items-center justify-center flex-shrink-0">
-                                        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-800 dark:text-gray-100">Pesanan baru
-                                            #12345 telah diterima.</p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">5 menit lalu</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li
-                                class="p-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-150 cursor-pointer">
-                                <div class="flex items-start space-x-3">
-                                    <div
-                                        class="w-10 h-10 bg-yellow-100 dark:bg-yellow-800/50 rounded-full flex items-center justify-center flex-shrink-0">
-                                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd"
-                                                d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.21 2.98-1.742 2.98H4.42c-1.532 0-2.492-1.646-1.742-2.98l5.58-9.92zM10 13a1 1 0 110-2 1 1 0 010 2zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-800 dark:text-gray-100">Stok produk
-                                            hampir habis: Teh Botol.</p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">1 jam lalu</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <div
-                            class="py-2 px-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50 text-center">
-                            <a href="#"
-                                class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">Lihat semua
-                                notifikasi</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="w-px h-6 bg-gray-200 dark:bg-gray-700"></div>
-
                 <div class="relative">
                     <button id="user-menu-button" class="flex items-center space-x-3 group" aria-expanded="false">
                         @php
                             $sales = Auth::guard('sales')->user();
                         @endphp
                         @if ($sales && $sales->foto_profil)
-                            <img class="h-8 w-8 rounded-full object-cover"
+                            <img class="h-9 w-9 rounded-full object-cover ring-2 ring-offset-2 ring-offset-white dark:ring-offset-gray-900 ring-blue-500"
                                 src="{{ asset('storage/' . $sales->foto_profil) }}" alt="User profile">
                         @else
-                            {{-- Fallback/Default avatar jika tidak ada foto --}}
-                            <span class="inline-block h-8 w-8 overflow-hidden rounded-full bg-gray-100">
-                                <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                                    <path
-                                        d="M24 20.993V24H0v-2.997A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                                </svg>
+                            <span
+                                class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-gray-500 ring-2 ring-offset-2 ring-offset-white dark:ring-offset-gray-900 ring-blue-500">
+                                <span
+                                    class="font-medium leading-none text-white">{{ strtoupper(substr($sales->name, 0, 2)) }}</span>
                             </span>
                         @endif
                         <div class="hidden md:block text-left">
                             <p class="text-sm font-semibold text-gray-800 dark:text-gray-200 truncate">
-                                {{ Auth::guard('sales')->user()->name }}</p>
+                                {{ $sales->name }}</p>
                             <p class="text-xs text-gray-500 dark:text-gray-400">Sales</p>
                         </div>
                     </button>
@@ -114,19 +78,19 @@
                         class="origin-top-right absolute right-0 mt-3 w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl overflow-hidden z-20 hidden animate-fade-in-down">
                         <div class="pt-3 pb-2 px-4 border-b border-gray-200 dark:border-gray-700">
                             <div class="font-semibold text-gray-800 dark:text-gray-100">
-                                {{ Auth::guard('sales')->user()->name }}</div>
+                                {{ $sales->name }}</div>
                             <div class="text-xs text-gray-500 dark:text-gray-400 truncate">
-                                {{ Auth::guard('sales')->user()->email }}</div>
+                                {{ $sales->email }}</div>
                         </div>
                         <ul class="py-1">
                             <li>
-                                {{-- --- PERBAIKAN DI SINI --- --}}
                                 <a href="{{ route('sales.profile.show') }}"
                                     class="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
-                                        </path>
+                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                        <circle cx="12" cy="7" r="4" />
                                     </svg>
                                     <span>Profil Saya</span>
                                 </a>
@@ -136,10 +100,12 @@
                                     @csrf
                                     <button type="submit"
                                         class="w-full text-left flex items-center space-x-2 px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
-                                            </path>
+                                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24"
+                                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                                            <polyline points="16 17 21 12 16 7" />
+                                            <line x1="21" x2="9" y1="12" y2="12" />
                                         </svg>
                                         <span>Keluar</span>
                                     </button>
@@ -153,7 +119,6 @@
     </div>
 </header>
 
-{{-- Tambahkan Style untuk Animasi --}}
 <style>
     @keyframes fade-in-down {
         from {
@@ -172,43 +137,79 @@
     }
 </style>
 
-
 <script>
-    // Script untuk toggle dropdowns (sebagian besar sama, hanya disederhanakan)
     document.addEventListener('DOMContentLoaded', function() {
-        const notificationButton = document.getElementById('notification-button');
-        const notificationDropdown = document.getElementById('notification-dropdown');
-        const userMenuButton = document.getElementById('user-menu-button');
-        const userDropdown = document.getElementById('user-dropdown');
+        // --- Jam, Tanggal, & Sapaan ---
+        const clockElement = document.getElementById('clock');
+        const greetingTextElement = document.getElementById('greeting-text');
+        const greetingIconElement = document.getElementById('greeting-icon');
+        const dateDisplayElement = document.getElementById('date-display');
 
+        const updateTimeElements = () => {
+            const now = new Date();
+            const hours = now.getHours();
+
+            if (clockElement) {
+                clockElement.textContent = now.toLocaleTimeString('id-ID', {
+                    hour12: false,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+            }
+
+            if (dateDisplayElement) {
+                dateDisplayElement.textContent = now.toLocaleDateString('id-ID', {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+            }
+
+            let greeting = "Halo,";
+            let icon = "👋";
+            if (hours >= 4 && hours < 11) {
+                greeting = "Selamat Pagi,";
+                icon = "☀️";
+            } else if (hours >= 11 && hours < 15) {
+                greeting = "Selamat Siang,";
+                icon = "☀️";
+            } else if (hours >= 15 && hours < 19) {
+                greeting = "Selamat Sore,";
+                icon = "🌥️";
+            } else {
+                greeting = "Selamat Malam,";
+                icon = "🌙";
+            }
+
+            if (greetingTextElement) greetingTextElement.textContent = greeting;
+            if (greetingIconElement) greetingIconElement.textContent = icon;
+        };
+
+        updateTimeElements();
+        setInterval(updateTimeElements, 1000);
+
+        // --- Logika Dropdown & Sidebar ---
         const setupDropdown = (button, dropdown) => {
             if (!button || !dropdown) return;
             button.addEventListener('click', (e) => {
                 e.stopPropagation();
-                // Sembunyikan dropdown lain sebelum menampilkan yang ini
-                if (dropdown === notificationDropdown) userDropdown.classList.add('hidden');
-                if (dropdown === userDropdown) notificationDropdown.classList.add('hidden');
-
                 dropdown.classList.toggle('hidden');
             });
         };
 
-        setupDropdown(notificationButton, notificationDropdown);
+        const userMenuButton = document.getElementById('user-menu-button');
+        const userDropdown = document.getElementById('user-dropdown');
         setupDropdown(userMenuButton, userDropdown);
 
-        // Tutup dropdown jika klik di luar
         document.addEventListener('click', (e) => {
-            if (notificationDropdown && !notificationDropdown.contains(e.target) && !notificationButton
-                .contains(e.target)) {
-                notificationDropdown.classList.add('hidden');
-            }
             if (userDropdown && !userDropdown.contains(e.target) && !userMenuButton.contains(e
-                    .target)) {
+                .target)) {
                 userDropdown.classList.add('hidden');
             }
         });
 
-        // Script untuk toggle sidebar mobile
         const sidebarToggle = document.getElementById('sidebar-toggle');
         const sidebar = document.getElementById('sidebar');
         if (sidebarToggle && sidebar) {
