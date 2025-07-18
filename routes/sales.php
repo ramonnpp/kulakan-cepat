@@ -65,5 +65,6 @@ Route::prefix('sales')->name('sales.')->group(function () {
         // Rute untuk Profil Sales
         Route::get('/profile', [SalesController::class, 'profile'])->name('profile.show');
         Route::put('/profile', [SalesController::class, 'updateProfile'])->name('profile.update');
+        Route::post('/profile/photo', [SalesController::class, 'updatePhoto'])->name('profile.updatePhoto');
     });
 });
