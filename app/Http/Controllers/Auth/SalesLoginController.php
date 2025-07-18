@@ -5,48 +5,87 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Sales; // Pastikan model Sales di-import
 
 class SalesLoginController extends Controller
 {
     /**
-     * Show the sales login form.
+     * Membuat instance controller baru.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest:sales')->except('logout');
+    }
+
+    /**
+     * Menampilkan form login untuk sales.
      *
      * @return \Illuminate\View\View
      */
     public function showLoginForm()
     {
-        return view('sales.auth.login'); // This view already exists
+        return view('sales.auth.login');
     }
 
     /**
-     * Handle a sales login request.
+     * Menangani permintaan login.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
+        // 1. Validasi input dari form
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
         ]);
 
-        // Attempt to log in the sales representative using the 'sales' guard
-        if (Auth::guard('sales')->attempt($credentials, $request->remember)) {
-            $request->session()->regenerate();
+        $credentials = $request->only('email', 'password');
 
-            // Redirect to the sales dashboard
-            return redirect()->intended(route('sales.dashboard'))->with('success', 'Anda berhasil login sebagai Sales!');
+        // 2. Mencoba untuk melakukan otentikasi
+        if (Auth::guard('sales')->attempt($credentials, $request->filled('remember'))) {
+            // Jika kredensial (email & password) benar, ambil data user
+            $user = Auth::guard('sales')->user();
+
+            // 3. PERIKSA STATUS AKUN
+            if ($user->status !== 'Aktif') {
+                $status = $user->status;
+
+                // Segera logout user yang tidak aktif agar tidak ada session yang tersisa
+                Auth::guard('sales')->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                // Siapkan pesan error spesifik berdasarkan status akun
+                $errorMessage = 'Akun Anda belum aktif. Silakan hubungi admin.'; // Pesan default
+                if ($status === 'Cuti') {
+                    $errorMessage = 'Akun Anda sedang dalam masa cuti dan tidak dapat digunakan. Hubungi admin untuk informasi lebih lanjut.';
+                } elseif ($status === 'Nonaktif') {
+                    $errorMessage = 'Akun Anda telah dinonaktifkan. Silakan hubungi admin untuk informasi lebih lanjut.';
+                }
+
+                // Kembalikan ke halaman login dengan pesan error yang jelas
+                return redirect()->route('sales.login')
+                    ->withInput($request->only('email', 'remember'))
+                    ->with('error', $errorMessage);
+            }
+
+            // 4. Jika status 'Aktif', regenerasi session dan lanjutkan ke dashboard
+            $request->session()->regenerate();
+            return redirect()->intended(route('sales.dashboard'));
         }
 
-        // If login fails, redirect back with an error message
-        return back()->withErrors([
-            'email' => 'Email atau password salah.',
-        ])->onlyInput('email');
+        // 5. Jika kredensial salah, kembali dengan pesan error umum
+        return redirect()->route('sales.login')
+            ->withInput($request->only('email', 'remember'))
+            ->with('error', 'Email atau password yang Anda masukkan salah.');
     }
 
     /**
-     * Log the sales representative out of the application.
+     * Melakukan logout pada sales.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
@@ -54,11 +93,8 @@ class SalesLoginController extends Controller
     public function logout(Request $request)
     {
         Auth::guard('sales')->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
-        return redirect('/sales/login')->with('success', 'Anda telah berhasil logout.');
+        return redirect('/sales/login');
     }
 }
