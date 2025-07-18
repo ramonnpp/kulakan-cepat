@@ -19,6 +19,17 @@ Route::prefix('sales')->name('sales.')->group(function () {
     Route::post('/login', [SalesLoginController::class, 'login']);
     Route::post('/logout', [SalesLoginController::class, 'logout'])->name('logout');
 
+    // Rute untuk menampilkan form registrasi sales (GET)
+    Route::get('/register', [App\Http\Controllers\Auth\SalesRegisterController::class, 'showRegistrationForm'])->name('register');
+
+    // Rute untuk memproses pendaftaran sales (POST)
+    Route::post('/register', [App\Http\Controllers\Auth\SalesRegisterController::class, 'register'])->name('register.submit');
+
+    // Rute untuk halaman "pending"
+    Route::get('/pending', function () {
+        return view('sales.auth.pending');
+    })->name('pending');
+
     // Grup Rute yang Dilindungi Middleware
     Route::middleware(['auth.sales'])->group(function () {
 
