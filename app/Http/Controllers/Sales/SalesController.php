@@ -26,7 +26,7 @@ class SalesController extends Controller
             $searchTerm = $request->search;
             $query->where(function ($q) use ($searchTerm) {
                 $q->where('name_store', 'like', "%{$searchTerm}%")
-                    ->orWhere('owner', 'like', "%{$searchTerm}%")
+                    ->orWhere('name_owner', 'like', "%{$searchTerm}%")
                     ->orWhere('no_phone', 'like', "%{$searchTerm}%");
             });
         }
@@ -161,5 +161,24 @@ class SalesController extends Controller
         $sales->save();
 
         return redirect()->route('sales.profile.show')->with('success', 'Foto profil berhasil diperbarui!');
+    }
+
+    public function updateOrderStatus(Request $request, Transaction $transaction)
+    {
+        // Validasi input
+        $request->validate([
+            'status' => ['required', \Illuminate\Validation\Rule::in(['WAITING_CONFIRMATION', 'PROCESS', 'SEND', 'FINISH', 'CANCEL'])],
+        ]);
+
+        // Pastikan sales hanya bisa mengubah status pesanan dari customernya sendiri
+        if ($transaction->customer->id_sales !== Auth::guard('sales')->id()) {
+            return back()->with('error', 'Anda tidak memiliki akses untuk mengubah status pesanan ini.');
+        }
+
+        // Update status transaksi
+        $transaction->status = $request->status;
+        $transaction->save();
+
+        return back()->with('success', 'Status pesanan berhasil diperbarui.');
     }
 }
