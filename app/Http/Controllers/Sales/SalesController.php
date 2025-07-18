@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\Transaction;
 use App\Models\CustomerVisitNote;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Carbon;
 
 class SalesController extends Controller
@@ -138,5 +139,27 @@ class SalesController extends Controller
         $sales->save();
 
         return redirect()->route('sales.profile.show')->with('success', 'Profil berhasil diperbarui!');
+    }
+
+    public function updatePhoto(Request $request)
+    {
+        $request->validate([
+            'foto_profil' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
+
+        /** @var \App\Models\Sales $sales */
+        $sales = Auth::guard('sales')->user();
+
+        // Hapus foto lama jika ada
+        if ($sales->foto_profil) {
+            Storage::disk('public')->delete($sales->foto_profil);
+        }
+
+        // Simpan foto baru dan update path di database
+        $path = $request->file('foto_profil')->store('sales_profiles', 'public');
+        $sales->foto_profil = $path;
+        $sales->save();
+
+        return redirect()->route('sales.profile.show')->with('success', 'Foto profil berhasil diperbarui!');
     }
 }

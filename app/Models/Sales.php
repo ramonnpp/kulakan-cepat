@@ -23,6 +23,7 @@ class Sales extends Authenticatable
         'no_phone',
         'password',
         'target_sales',
+        'foto_profil',
         'wilayah',
         'status',
     ];

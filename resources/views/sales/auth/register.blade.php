@@ -43,7 +43,8 @@
                         </div>
 
                         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                            <form class="space-y-4" action="{{ route('sales.register.submit') }}" method="POST">
+                            <form class="space-y-4" action="{{ route('sales.register.submit') }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @if ($errors->any())
                                     <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-3 rounded-md text-sm"
@@ -115,6 +116,12 @@
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer">
                                         <i class="fa-solid fa-eye-slash text-gray-400"></i>
                                     </button>
+                                </div>
+                                <div>
+                                    <label for="foto_profil"
+                                        class="block text-sm font-medium leading-6 text-gray-900">Foto Profil</label>
+                                    <input id="foto_profil" name="foto_profil" type="file" required
+                                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100">
                                 </div>
                                 <div class="pt-2">
                                     <button type="submit"
