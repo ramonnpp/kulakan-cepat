@@ -4,24 +4,22 @@ namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Customer;
 use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use App\Models\CustomerVisitNote;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Carbon;
+use App\Models\Product; // <--- PERBAIKAN: Tambahkan baris ini
 
 class SalesController extends Controller
 {
-    /**
-     * Menampilkan daftar pelanggan dengan fungsionalitas filter dan pencarian.
-     */
     public function index(Request $request)
     {
         $salesId = Auth::guard('sales')->id();
         $query = Customer::where('id_sales', $salesId);
 
-        // Menerapkan filter pencarian
         if ($request->filled('search')) {
             $searchTerm = $request->search;
             $query->where(function ($q) use ($searchTerm) {
@@ -31,7 +29,6 @@ class SalesController extends Controller
             });
         }
 
-        // Menerapkan filter status
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
@@ -41,9 +38,6 @@ class SalesController extends Controller
         return view('sales.customers', compact('customers'));
     }
 
-    /**
-     * Menampilkan detail satu pelanggan.
-     */
     public function show(Customer $customer)
     {
         if ($customer->id_sales != Auth::guard('sales')->id()) {
@@ -73,9 +67,6 @@ class SalesController extends Controller
         return view('sales.customer-detail', compact('customer', 'transactions', 'visitNotes', 'mostBoughtProducts'));
     }
 
-    /**
-     * Menyimpan catatan kunjungan baru.
-     */
     public function storeVisitNote(Request $request, $customerId)
     {
         $request->validate(['note_text' => 'required|string']);
@@ -89,9 +80,6 @@ class SalesController extends Controller
         return back()->with('success', 'Catatan kunjungan berhasil ditambahkan.');
     }
 
-    /**
-     * Menampilkan detail pesanan untuk modal.
-     */
     public function showOrder(Transaction $transaction)
     {
         if ($transaction->customer->id_sales !== Auth::guard('sales')->id()) {
@@ -102,18 +90,12 @@ class SalesController extends Controller
         return response()->json($transaction);
     }
 
-    /**
-     * Menampilkan halaman profil sales.
-     */
     public function profile()
     {
         $sales = Auth::guard('sales')->user();
         return view('sales.profile', compact('sales'));
     }
 
-    /**
-     * Memperbarui data profil sales.
-     */
     public function updateProfile(Request $request)
     {
         $sales = Auth::guard('sales')->user();
@@ -129,10 +111,7 @@ class SalesController extends Controller
         $sales->email = $request->email;
         $sales->no_phone = $request->no_phone;
 
-        // --- PERBAIKAN UTAMA DI SINI ---
         if ($request->filled('password')) {
-            // JANGAN gunakan bcrypt() di sini.
-            // Biarkan Model Mutator yang mengenkripsi secara otomatis.
             $sales->password = $request->password;
         }
 
@@ -147,15 +126,12 @@ class SalesController extends Controller
             'foto_profil' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        /** @var \App\Models\Sales $sales */
         $sales = Auth::guard('sales')->user();
 
-        // Hapus foto lama jika ada
         if ($sales->foto_profil) {
             Storage::disk('public')->delete($sales->foto_profil);
         }
 
-        // Simpan foto baru dan update path di database
         $path = $request->file('foto_profil')->store('sales_profiles', 'public');
         $sales->foto_profil = $path;
         $sales->save();
@@ -165,20 +141,97 @@ class SalesController extends Controller
 
     public function updateOrderStatus(Request $request, Transaction $transaction)
     {
-        // Validasi input
         $request->validate([
             'status' => ['required', \Illuminate\Validation\Rule::in(['WAITING_CONFIRMATION', 'PROCESS', 'SEND', 'FINISH', 'CANCEL'])],
         ]);
 
-        // Pastikan sales hanya bisa mengubah status pesanan dari customernya sendiri
         if ($transaction->customer->id_sales !== Auth::guard('sales')->id()) {
             return back()->with('error', 'Anda tidak memiliki akses untuk mengubah status pesanan ini.');
         }
 
-        // Update status transaksi
         $transaction->status = $request->status;
         $transaction->save();
 
         return back()->with('success', 'Status pesanan berhasil diperbarui.');
+    }
+
+    // --- FUNGSI BARU UNTUK SCANNER ---
+
+    public function qrCodes()
+    {
+        // PERBAIKAN: Menghapus ->where('status', 'ACTIVE') karena kolom status tidak ada
+        $products = Product::all();
+        return view('sales.qr_codes', compact('products'));
+    }
+
+    public function scanner()
+    {
+        $salesId = Auth::guard('sales')->id();
+        $customers = Customer::where('id_sales', $salesId)->where('status', 'ACTIVE')->get();
+        return view('sales.scanner', compact('customers'));
+    }
+
+    public function getProductBySku($sku)
+    {
+        $product = Product::where('SKU', $sku)->first();
+
+        if ($product) {
+            return response()->json($product);
+        }
+
+        return response()->json(['message' => 'Product not found'], 404);
+    }
+
+    public function processCheckout(Request $request)
+    {
+        $request->validate([
+            'customer_id' => 'required|exists:customer,id_customer',
+            'cart' => 'required|json'
+        ]);
+
+        $cartItems = json_decode($request->cart, true);
+        $customerId = $request->customer_id;
+
+        if (empty($cartItems)) {
+            return redirect()->route('sales.scanner')->with('error', 'Keranjang kosong.');
+        }
+
+        DB::beginTransaction();
+        try {
+            $totalPrice = array_reduce($cartItems, function ($carry, $item) {
+                return $carry + ($item['price'] * $item['quantity']);
+            }, 0);
+
+            $transaction = Transaction::create([
+                'id_customer'      => $customerId,
+                'date_transaction' => now(),
+                'total_price'      => $totalPrice,
+                'status'           => 'FINISH',
+                'method_payment'   => 'CASH',
+            ]);
+
+            foreach ($cartItems as $item) {
+                TransactionDetail::create([
+                    'id_transaction' => $transaction->id_transaction,
+                    'id_product'     => $item['id_product'],
+                    'quantity'       => $item['quantity'],
+                    'unit_price'     => $item['price'],
+                ]);
+
+                $product = Product::find($item['id_product']);
+                if ($product) {
+                    $product->total_stock -= $item['quantity'];
+                    $product->save();
+                }
+            }
+
+            DB::commit();
+
+            return redirect()->route('sales.customers.show', $customerId)->with('success', 'Transaksi berhasil dibuat!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('Checkout Error: ' . $e->getMessage());
+            return redirect()->route('sales.scanner')->with('error', 'Terjadi kesalahan saat checkout. Silakan coba lagi.');
+        }
     }
 }
