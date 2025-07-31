@@ -55,9 +55,11 @@ Route::prefix('sales')->name('sales.')->group(function () {
         Route::get('/sales-material', [SalesMaterialController::class, 'index'])->name('sales_material.index');
 
         // Rute Scanner
-        Route::get('/scanner', function () {
-            return view('sales.scanner');
-        })->name('scanner');
+        Route::get('/scanner', [SalesController::class, 'scanner'])->name('scanner');
+        Route::get('/products/qr-codes', [SalesController::class, 'qrCodes'])->name('products.qr');
+        Route::get('/products/sku/{sku}', [SalesController::class, 'getProductBySku'])->name('products.sku');
+        Route::post('/checkout/process', [SalesController::class, 'processCheckout'])->name('checkout.process');
+        // -------------------------
 
         // Rute untuk Detail Pesanan (Modal)
         Route::get('/orders/{transaction}', [SalesController::class, 'showOrder'])->name('orders.show');
